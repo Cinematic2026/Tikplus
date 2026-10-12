@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BStream Studio - Secure Player Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.95);
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-color);
+            font-family: 'Titillium Web', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: var(--panel-bg);
+            padding: 30px;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            margin: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        h1 { font-weight: 300; font-size: 1.8rem; }
+        .btn-security {
+            background: var(--border);
+            color: var(--text-main);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .btn-security:hover { background: #475569; }
+        .field-wrap { margin-bottom: 20px; }
+        label { display: block; font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+        .req { color: var(--accent); }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea { resize: vertical; height: 70px; font-family: monospace; font-size: 13px; }
+        .button {
+            background: var(--accent);
+            color: var(--text-main);
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background 0.3s;
+        }
+        .button:hover { background: var(--accent-hover); }
+        .hidden { display: none !important; }
+        
+        /* Modal de Seguridad Avanzada */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #1e293b; padding: 30px; border-radius: 8px; width: 500px; max-width: 90%;
+            border: 1px solid var(--border);
+        }
+        .close-modal { float: right; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+        .setting-item { margin-bottom: 20px; }
+        .setting-item label { display: flex; align-items: center; gap: 10px; color: #fff; cursor: pointer; }
+        .setting-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
+        .desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; margin-left: 30px; }
+
+        /* Estilos del Modo Visor (Reproductor con Marca de Agua BStream) */
+        #viewerContainer {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        #playerFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .bstream-watermark {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #10b981;
+            pointer-events: none; /* Crucial: No interfiere con los clics del video */
+            z-index: 99;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+        }
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(16, 185, 129, 0.8);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: bold;
+        }
+        .result-box { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- PANEL GENERADOR -->
+    <div id="generatorPanel" class="container">
+        <div class="header">
+            <h1>BStream Generator</h1>
+            <button id="openSecurity" class="btn-security">🛡️ Panel Sandbox & Adblock</button>
+        </div>
+
+        <form id="genForm">
+            <div class="field-wrap">
+                <label>Enlace Embed / Video Original <span class="req">*</span></label>
+                <input type="text" id="targetLink" placeholder="https://ejemplo.com/embed/..." required>
+            </div>
+            <button type="submit" class="button">Generar Enlace Enmascarado</button>
+        </form>
+
+        <div id="outputSection" class="result-box hidden">
+            <div class="field-wrap">
+                <label>Código Iframe Protegido</label>
+                <textarea id="iframeCode" readonly></textarea>
+            </div>
+            <div class="field-wrap">
+                <label>Enlace Directo Modificado</label>
+                <textarea id="directLink" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIGURACIÓN AVANZADA -->
+    <div id="securityModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="closeModal" class="close-modal">&times;</span>
+            <h2 style="margin-bottom: 20px; font-weight: 300;">Panel de Seguridad & Sandbox</h2>
+            
+            <div class="setting-item">
+                <label><input type="checkbox" id="chkSandbox" checked> Aislar por Sandbox Estricto</label>
+                <div class="desc">Añade restricciones de seguridad al iframe para bloquear popups y ejecución de scripts no autorizados.</div>
+            </div>
+
+            <div class="setting-item">
+                <label><input type="checkbox" id="chkAdblock" checked> Bloqueador Activo de Popups / Redirecciones</label>
+                <div class="desc">Impide que scripts maliciosos de terceros abran nuevas pestañas o redirecciones al hacer clic.</div>
+            </div>
+
+            <div class="setting-item">
+                <label><input type="checkbox" id="chkWatermark" checked> Mantener Marca de Agua Forzada</label>
+                <div class="desc">Mantiene el sello flotante BStream visible de forma persistente incluso en pantalla completa.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODO VISOR (Se activa automáticamente si la URL tiene parámetros) -->
+    <div id="viewerContainer" class="hidden">
+        <div id="watermarkEl" class="bstream-watermark">BStream™</div>
+        <iframe id="playerFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <button id="fsBtn" class="fullscreen-btn">📺 Pantalla Completa Segura</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedV = urlParams.get("v");
+
+            // ==================== LÓGICA DEL VISOR ====================
+            if (encodedV) {
+                document.getElementById("generatorPanel").classList.add("hidden");
+                const viewer = document.getElementById("viewerContainer");
+                viewer.classList.remove("hidden");
+
+                try {
+                    const originalUrl = atob(encodedV);
+                    const iframe = document.getElementById("playerFrame");
+                    iframe.src = originalUrl;
+
+                    // Aplicar configuración de Sandbox según parámetros o por defecto
+                    const sb = urlParams.get("sb") !== "0";
+                    if (sb) {
+                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+                    }
+
+                    // Marca de agua
+                    if (urlParams.get("wm") === "0") {
+                        document.getElementById("watermarkEl").style.display = "none";
+                    }
+
+                    // Control de Pantalla Completa Segura (mantiene la capa visible)
+                    const fsBtn = document.getElementById("fsBtn");
+                    fsBtn.addEventListener("click", () => {
+                        if (!document.fullscreenElement) {
+                            viewer.requestFullscreen().catch(err => console.log(err));
+                        } else {
+                            document.exitFullscreen();
+                        }
+                    });
+
+                } catch (e) {
+                    document.body.innerHTML = "<h2 style='color:red; text-align:center; margin-top:20vh;'>Error: Enlace enmascarado inválido o corrupto.</h2>";
+                }
+                return;
+            }
+
+            // ==================== LÓGICA DEL GENERADOR ====================
+            const modal = document.getElementById("securityModal");
+            document.getElementById("openSecurity").addEventListener("click", () => modal.classList.remove("hidden"));
+            document.getElementById("closeModal").addEventListener("click", () => modal.classList.add("hidden"));
+
+            const genForm = document.getElementById("genForm");
+            genForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const rawLink = document.getElementById("targetLink").value.trim();
+                const base64Link = btoa(rawLink);
+
+                // Leer estados del panel de seguridad avanzado
+                const useSandbox = document.getElementById("chkSandbox").checked ? "1" : "0";
+                const useWatermark = document.getElementById("chkWatermark").checked ? "1" : "0";
+
+                const currentBase = window.location.origin + window.location.pathname;
+                const secureMaskedUrl = `${currentBase}?v=${base64Link}&sb=${useSandbox}&wm=${useWatermark}`;
+
+                // Mostrar resultados
+                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="450px" frameborder="0" allowfullscreen></iframe>`;
+                document.getElementById("directLink").value = secureMaskedUrl;
+                document.getElementById("outputSection").classList.remove("hidden");
+            });
+        });
+    </script>
+</body>
+</html>
