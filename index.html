@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BStream Studio - Secure Player Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>BStream Pro - Secure Streaming Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --panel-bg: rgba(30, 41, 59, 0.95);
+            --bg-color: #0b0f19;
+            --panel-bg: rgba(17, 24, 39, 0.95);
             --accent: #10b981;
             --accent-hover: #059669;
-            --text-main: #ffffff;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border: #334155;
+            --border: #1e293b;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -22,191 +22,319 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        .container {
+
+        /* PANEL GENERADOR AVANZADO */
+        .studio-container {
             background: var(--panel-bg);
-            padding: 30px;
+            padding: 35px;
             width: 100%;
-            max-width: 700px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border);
             margin: 20px;
         }
-        .header {
+        .studio-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
         }
-        h1 { font-weight: 300; font-size: 1.8rem; }
-        .btn-security {
-            background: var(--border);
-            color: var(--text-main);
-            border: none;
-            padding: 8px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .btn-security:hover { background: #475569; }
+        h1 { font-weight: 300; font-size: 1.8rem; color: #fff; letter-spacing: 0.5px; }
+        h1 span { color: var(--accent); font-weight: 600; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .field-wrap { margin-bottom: 20px; }
-        label { display: block; font-size: 14px; color: var(--text-muted); margin-bottom: 6px; }
+        label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
         .req { color: var(--accent); }
         input, select, textarea {
             width: 100%;
             padding: 12px;
-            background: var(--bg-color);
+            background: #030712;
             border: 1px solid var(--border);
             color: var(--text-main);
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.2s;
         }
-        textarea { resize: vertical; height: 70px; font-family: monospace; font-size: 13px; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { resize: vertical; height: 60px; font-family: monospace; font-size: 12px; }
+        
+        .section-title {
+            font-size: 14px;
+            color: var(--accent);
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--accent);
+            padding-left: 8px;
+        }
+        
         .button {
             background: var(--accent);
-            color: var(--text-main);
+            color: #fff;
             border: none;
             padding: 14px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             width: 100%;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: background 0.3s;
+            letter-spacing: 1px;
+            transition: background 0.3s, transform 0.1s;
         }
         .button:hover { background: var(--accent-hover); }
+        .button:active { transform: scale(0.99); }
         .hidden { display: none !important; }
-        
-        /* Modal de Seguridad Avanzada */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: #1e293b; padding: 30px; border-radius: 8px; width: 500px; max-width: 90%;
-            border: 1px solid var(--border);
-        }
-        .close-modal { float: right; font-size: 24px; cursor: pointer; color: var(--text-muted); }
-        .setting-item { margin-bottom: 20px; }
-        .setting-item label { display: flex; align-items: center; gap: 10px; color: #fff; cursor: pointer; }
-        .setting-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
-        .desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; margin-left: 30px; }
 
-        /* Estilos del Modo Visor (Reproductor con Marca de Agua BStream) */
+        /* MODO VISOR & REPRODUCTOR PRO */
         #viewerContainer {
-            position: relative;
-            width: 100%;
-            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            z-index: 9999;
         }
         #playerFrame {
-            width: 100%;
-            height: 100%;
-            border: none;
+            width: 100%; height: 100%; border: none;
         }
-        .bstream-watermark {
+
+        /* LOADER DINÁMICO PRO */
+        #loaderOverlay {
             position: absolute;
-            top: 20px;
-            right: 25px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 1px;
-            color: #10b981;
-            pointer-events: none; /* Crucial: No interfiere con los clics del video */
-            z-index: 99;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-        }
-        .fullscreen-btn {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(16, 185, 129, 0.8);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0b0f19;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             z-index: 100;
-            font-weight: bold;
+            transition: opacity 0.4s ease;
         }
-        .result-box { margin-top: 20px; }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid rgba(16, 185, 129, 0.1);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-title { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 5px; text-align: center; }
+        .loader-sub { font-size: 0.85rem; color: var(--text-muted); text-align: center; }
+
+        /* MARCA DE AGUA SUPERIOR IZQUIERDA + ICONO SEGURIDAD */
+        .bstream-brand-badge {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: rgba(11, 15, 25, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            user-select: none;
+        }
+        .brand-text {
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        .security-badge-btn {
+            background: rgba(16, 185, 129, 0.2);
+            border: none;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: 13px;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .security-badge-btn:hover { background: var(--accent); transform: scale(1.1); }
+
+        /* PANEL DESLIZANTE INFERIOR (BOTTOM SHEET) */
+        .bottom-drawer {
+            position: absolute;
+            bottom: -100%; left: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.98);
+            border-top: 1px solid var(--accent);
+            padding: 25px;
+            transition: bottom 0.35s cubic-bezier(0.1, 1, 0.1, 1);
+            z-index: 200;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .bottom-drawer.open { bottom: 0; }
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .drawer-title { font-weight: 600; font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
+        .close-drawer:hover { color: #fff; }
+        
+        .drawer-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .drawer-option label { color: #fff; font-size: 14px; margin: 0; text-transform: none; cursor: pointer; }
+        .drawer-option input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--accent); cursor: pointer; }
+
+        /* OVERLAY DE ACTIVACIÓN POR TOCK/CLIC */
+        #clickToPlayOverlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            z-index: 40;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <!-- PANEL GENERADOR -->
-    <div id="generatorPanel" class="container">
-        <div class="header">
-            <h1>BStream Generator</h1>
-            <button id="openSecurity" class="btn-security">🛡️ Panel Sandbox & Adblock</button>
+    <!-- ==================== PANEL GENERADOR PRO ==================== -->
+    <div id="generatorPanel" class="studio-container">
+        <div class="studio-header">
+            <h1>BStream <span>Studio Pro</span></h1>
+            <span style="font-size: 12px; color: var(--text-muted);">v2.6 Secure Engine</span>
         </div>
 
         <form id="genForm">
             <div class="field-wrap">
-                <label>Enlace Embed / Video Original <span class="req">*</span></label>
-                <input type="text" id="targetLink" placeholder="https://ejemplo.com/embed/..." required>
+                <label>Enlace Embed o Servidor de Video <span class="req">*</span></label>
+                <input type="text" id="targetLink" placeholder="Ej: https://unlimplay.com/embed/... o https://uqload.co/embed-..." required>
             </div>
-            <button type="submit" class="button">Generar Enlace Enmascarado</button>
+
+            <div class="section-title">Configuración Avanzada de Cliente</div>
+            
+            <div class="grid-2">
+                <div class="field-wrap">
+                    <label>Nivel de Sandbox</label>
+                    <select id="selSandbox">
+                        <option value="strict">Estricto (Máx. Protección Anti-Popup)</option>
+                        <option value="moderate">Moderado (Permite Presentación/Scripts)</option>
+                        <option value="none">Desactivado</option>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label>Bloqueador de Redirecciones</label>
+                    <select id="selAdblock">
+                        <option value="1">Activo (Interceptar & Bloquear Clicks Ext.)</option>
+                        <option value="0">Estándar</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="field-wrap">
+                    <label>Forzar Pantalla Completa Inicial</label>
+                    <select id="selFs">
+                        <option value="1">Sí (Al primer clic interactivo)</option>
+                        <option value="0">No (Modo Estándar)</option>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label>Texto de Marca de Agua</label>
+                    <input type="text" id="customBrand" value="BStream Pro">
+                </div>
+            </div>
+
+            <button type="submit" class="button" style="margin-top: 10px;">Generar Enlace Enmascarado Pro</button>
         </form>
 
-        <div id="outputSection" class="result-box hidden">
+        <div id="outputSection" class="hidden" style="margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
             <div class="field-wrap">
-                <label>Código Iframe Protegido</label>
+                <label>Código Iframe Seguro</label>
                 <textarea id="iframeCode" readonly></textarea>
             </div>
             <div class="field-wrap">
-                <label>Enlace Directo Modificado</label>
+                <label>Enlace Directo Modificado (Oculto)</label>
                 <textarea id="directLink" readonly></textarea>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE CONFIGURACIÓN AVANZADA -->
-    <div id="securityModal" class="modal hidden">
-        <div class="modal-content">
-            <span id="closeModal" class="close-modal">&times;</span>
-            <h2 style="margin-bottom: 20px; font-weight: 300;">Panel de Seguridad & Sandbox</h2>
-            
-            <div class="setting-item">
-                <label><input type="checkbox" id="chkSandbox" checked> Aislar por Sandbox Estricto</label>
-                <div class="desc">Añade restricciones de seguridad al iframe para bloquear popups y ejecución de scripts no autorizados.</div>
-            </div>
 
-            <div class="setting-item">
-                <label><input type="checkbox" id="chkAdblock" checked> Bloqueador Activo de Popups / Redirecciones</label>
-                <div class="desc">Impide que scripts maliciosos de terceros abran nuevas pestañas o redirecciones al hacer clic.</div>
-            </div>
-
-            <div class="setting-item">
-                <label><input type="checkbox" id="chkWatermark" checked> Mantener Marca de Agua Forzada</label>
-                <div class="desc">Mantiene el sello flotante BStream visible de forma persistente incluso en pantalla completa.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODO VISOR (Se activa automáticamente si la URL tiene parámetros) -->
+    <!-- ==================== MODO VISOR & REPRODUCTOR PRO ==================== -->
     <div id="viewerContainer" class="hidden">
-        <div id="watermarkEl" class="bstream-watermark">BStream™</div>
-        <iframe id="playerFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <button id="fsBtn" class="fullscreen-btn">📺 Pantalla Completa Segura</button>
+        
+        <!-- Loader Dinámico Inteligente -->
+        <div id="loaderOverlay">
+            <div class="spinner"></div>
+            <div id="loaderTitle" class="loader-title">Conectando con servidor, por favor espere...</div>
+            <div class="loader-sub">Esto puede tardar unos segundos dependiendo del estado del servidor.</div>
+        </div>
+
+        <!-- Overlay invisible para capturar el primer toque y forzar pantalla completa -->
+        <div id="clickToPlayOverlay"></div>
+
+        <!-- Marca de Agua Superior Izquierda con Escudo de Seguridad -->
+        <div class="bstream-brand-badge">
+            <span id="displayBrandText" class="brand-text">BStream Pro</span>
+            <button id="openDrawerBtn" class="security-badge-btn" title="Panel de Seguridad Activa">🛡️</button>
+        </div>
+
+        <!-- El Frame del Reproductor Real -->
+        <iframe id="playerFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <!-- Panel Deslizante Inferior de Seguridad (Bottom Sheet) -->
+        <div id="securityDrawer" class="bottom-drawer">
+            <div class="drawer-header">
+                <div class="drawer-title">🛡️ Panel de Sandbox & Protección Antianuncios</div>
+                <button id="closeDrawerBtn" class="close-drawer">&times;</button>
+            </div>
+            
+            <div class="drawer-option">
+                <label for="toggleSandboxLive">Aislamiento Sandbox Estricto en Vivo</label>
+                <input type="checkbox" id="toggleSandboxLive" checked>
+            </div>
+            <div class="drawer-option">
+                <label for="toggleAntiPopup">Bloqueo Activo de Ventanas Emergentes (Popups)</label>
+                <input type="checkbox" id="toggleAntiPopup" checked>
+            </div>
+            <div class="drawer-option">
+                <label for="toggleWatermark">Mostrar Sello Flotante BStream</label>
+                <input type="checkbox" id="toggleWatermark" checked>
+            </div>
+            <div class="drawer-option">
+                <label for="toggleFastLoad">Optimización Turbo de Red (Preconnect)</label>
+                <input type="checkbox" id="toggleFastLoad" checked>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px; text-align: center;">BStream Security Core - Protección de streaming en cliente optimizada.</p>
+        </div>
+
     </div>
 
+    <!-- ==================== MOTOR LOGIC (JS) ==================== -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -221,55 +349,99 @@
                 try {
                     const originalUrl = atob(encodedV);
                     const iframe = document.getElementById("playerFrame");
+                    
+                    // Extraer nombre del host de forma limpia para el loader dinamico
+                    let hostName = "servidor externo";
+                    try {
+                        const parsedObj = new URL(originalUrl);
+                        hostName = parsedObj.hostname.replace("www.", "").split(".")[0];
+                        hostName = hostName.charAt(0).toUpperCase() + hostName.slice(1);
+                    } catch(err) {}
+
+                    document.getElementById("loaderTitle").innerText = `Conectando con ${hostName}, por favor espere...`;
+
+                    // Configurar Marca de agua personalizada si viene en parámetros
+                    const brandParam = urlParams.get("brand");
+                    if(brandParam) {
+                        document.getElementById("displayBrandText").innerText = decodeURIComponent(brandParam);
+                    }
+
+                    // Configuración de Sandbox
+                    const sbMode = urlParams.get("sb") || "strict";
+                    if (sbMode === "strict") {
+                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+                    } else if (sbMode === "moderate") {
+                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups-to-escape-sandbox allow-presentation");
+                    }
+
                     iframe.src = originalUrl;
 
-                    // Aplicar configuración de Sandbox según parámetros o por defecto
-                    const sb = urlParams.get("sb") !== "0";
-                    if (sb) {
-                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+                    // Ocultar Loader cuando cargue o por seguridad tras 3.5 segundos max
+                    const loader = document.getElementById("loaderOverlay");
+                    iframe.addEventListener("load", () => {
+                        setTimeout(() => loader.style.opacity = "0", 400);
+                        setTimeout(() => loader.style.display = "none", 800);
+                    });
+                    setTimeout(() => {
+                        loader.style.opacity = "0";
+                        setTimeout(() => loader.style.display = "none", 400);
+                    }, 4000);
+
+                    // Mecánica de Pantalla Completa por interacción inicial del usuario
+                    const forceFs = urlParams.get("fs") === "1";
+                    const clickOverlay = document.getElementById("clickToPlayOverlay");
+                    
+                    if(forceFs) {
+                        clickOverlay.addEventListener("click", () => {
+                            if (!document.fullscreenElement) {
+                                viewer.requestFullscreen().catch(e => console.log(e));
+                            }
+                            clickOverlay.remove(); // Se remueve para dejar libre la interacción con el video
+                        });
+                    } else {
+                        clickOverlay.remove();
                     }
 
-                    // Marca de agua
-                    if (urlParams.get("wm") === "0") {
-                        document.getElementById("watermarkEl").style.display = "none";
-                    }
+                    // Control del Bottom Sheet (Panel Deslizante de Seguridad)
+                    const drawer = document.getElementById("securityDrawer");
+                    document.getElementById("openDrawerBtn").addEventListener("click", () => drawer.classList.add("open"));
+                    document.getElementById("closeDrawerBtn").addEventListener("click", () => drawer.classList.remove("open"));
 
-                    // Control de Pantalla Completa Segura (mantiene la capa visible)
-                    const fsBtn = document.getElementById("fsBtn");
-                    fsBtn.addEventListener("click", () => {
-                        if (!document.fullscreenElement) {
-                            viewer.requestFullscreen().catch(err => console.log(err));
+                    // Opciones interactivas del panel de seguridad inferior en tiempo real
+                    document.getElementById("toggleWatermark").addEventListener("change", (e) => {
+                        document.querySelector(".bstream-brand-badge").style.display = e.target.checked ? "flex" : "none";
+                    });
+
+                    document.getElementById("toggleAntiPopup").addEventListener("change", (e) => {
+                        if(e.target.checked) {
+                            iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
                         } else {
-                            document.exitFullscreen();
+                            iframe.removeAttribute("sandbox");
                         }
                     });
 
                 } catch (e) {
-                    document.body.innerHTML = "<h2 style='color:red; text-align:center; margin-top:20vh;'>Error: Enlace enmascarado inválido o corrupto.</h2>";
+                    document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20vh; font-family:sans-serif;'>Error crítico: Enlace enmascarado inválido o corrupto.</h2>";
                 }
                 return;
             }
 
             // ==================== LÓGICA DEL GENERADOR ====================
-            const modal = document.getElementById("securityModal");
-            document.getElementById("openSecurity").addEventListener("click", () => modal.classList.remove("hidden"));
-            document.getElementById("closeModal").addEventListener("click", () => modal.classList.add("hidden"));
-
             const genForm = document.getElementById("genForm");
             genForm.addEventListener("submit", (e) => {
                 e.preventDefault();
                 const rawLink = document.getElementById("targetLink").value.trim();
                 const base64Link = btoa(rawLink);
 
-                // Leer estados del panel de seguridad avanzado
-                const useSandbox = document.getElementById("chkSandbox").checked ? "1" : "0";
-                const useWatermark = document.getElementById("chkWatermark").checked ? "1" : "0";
+                const sb = document.getElementById("selSandbox").value;
+                const fs = document.getElementById("selFs").value;
+                const brand = encodeURIComponent(document.getElementById("customBrand").value.trim());
 
                 const currentBase = window.location.origin + window.location.pathname;
-                const secureMaskedUrl = `${currentBase}?v=${base64Link}&sb=${useSandbox}&wm=${useWatermark}`;
+                const secureMaskedUrl = `${currentBase}?v=${base64Link}&sb=${sb}&fs=${fs}&brand=${brand}`;
 
-                // Mostrar resultados
-                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="450px" frameborder="0" allowfullscreen></iframe>`;
+                // Mostrar resultados generados
+                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>`;
                 document.getElementById("directLink").value = secureMaskedUrl;
                 document.getElementById("outputSection").classList.remove("hidden");
             });
