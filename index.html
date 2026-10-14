@@ -1,22 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>BStream Cinematic Studio v5.0 - Ultimate Enterprise</title>
+    <title>BStream Cinematic Studio v5.1 - Pure Enterprise</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #020617;
-            --bg-panel: rgba(15, 23, 42, 0.9);
-            --accent: #06b6d4;
-            --accent-secondary: #3b82f6;
-            --accent-glow: rgba(6, 182, 212, 0.35);
+            --bg-deep: #010409;
+            --bg-panel: rgba(13, 17, 23, 0.92);
+            --accent: #0284c7;
+            --accent-glow: rgba(2, 132, 199, 0.15);
             --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #64748b;
             --border: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(25px);
+            --glass-blur: blur(30px);
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
@@ -30,14 +28,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 45%);
             overflow-x: hidden;
             padding: 12px;
         }
 
-        /* PANEL GENERADOR DE ENLACES */
+        /* PANEL GENERADOR */
         .studio-container {
             background: var(--bg-panel);
             backdrop-filter: var(--glass-blur);
@@ -45,8 +40,8 @@
             padding: clamp(18px, 4vw, 36px);
             width: 100%;
             max-width: 880px;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--border);
             margin: auto;
         }
         .studio-header {
@@ -55,31 +50,31 @@
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 20px var(--accent-glow); flex-shrink: 0;
+            width: 40px; height: 40px; background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            border-radius: 10px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2); flex-shrink: 0;
         }
         h1 { font-weight: 800; font-size: clamp(1.2rem, 3.8vw, 1.55rem); letter-spacing: -0.5px; }
-        h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 span { color: #38bdf8; }
         .version-badge {
-            font-size: 10px; font-weight: 700; background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3); padding: 4px 10px; border-radius: 20px; color: var(--accent);
+            font-size: 10px; font-weight: 700; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; color: var(--text-muted);
             letter-spacing: 0.5px; text-transform: uppercase;
         }
 
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
         .field-wrap { margin-bottom: 16px; }
         label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
-        .req { color: var(--accent); }
+        .req { color: #38bdf8; }
         
         input, select, textarea {
-            width: 100%; padding: 12px 14px; background: rgba(2, 6, 23, 0.75);
-            border: 1px solid var(--border); color: var(--text-main); border-radius: 10px;
-            font-size: 13.5px; font-family: inherit; transition: all 0.25s ease;
+            width: 100%; padding: 12px 14px; background: rgba(1, 4, 9, 0.8);
+            border: 1px solid var(--border); color: var(--text-main); border-radius: 8px;
+            font-size: 13.5px; font-family: inherit; transition: all 0.2s ease;
         }
         input:focus, select:focus, textarea:focus {
-            outline: none; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
-            background: rgba(2, 6, 23, 0.95);
+            outline: none; border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+            background: rgba(1, 4, 9, 0.95);
         }
         
         .output-row { position: relative; }
@@ -87,29 +82,29 @@
         
         .copy-btn {
             position: absolute; right: 8px; top: 32px;
-            background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border);
             color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px;
             font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
         }
-        .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
+        .copy-btn:hover { background: #38bdf8; border-color: #38bdf8; color: #010409; }
         .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
 
         .section-title {
-            font-size: 11px; font-weight: 800; color: var(--accent); margin: 20px 0 12px 0;
+            font-size: 11px; font-weight: 800; color: #38bdf8; margin: 20px 0 12px 0;
             text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 8px;
         }
         .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
         .button-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color: #fff; border: none;
-            padding: 14px; font-size: 0.9rem; font-weight: 800; width: 100%; border-radius: 12px;
+            background: #0284c7; color: #fff; border: none;
+            padding: 14px; font-size: 0.9rem; font-weight: 800; width: 100%; border-radius: 8px;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 10px 25px -5px var(--accent-glow); transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); transition: all 0.2s;
         }
-        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.45); }
+        .button-primary:hover { background: #0369a1; transform: translateY(-1px); }
         .hidden { display: none !important; }
 
-        /* VISOR CINEMATOGRÁFICO RESPONSIVO */
+        /* VISOR CINEMATOGRÁFICO */
         #viewerContainer {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; display: flex; justify-content: center; align-items: center;
@@ -119,36 +114,28 @@
         .frame-wrapper.active { display: block; }
         #playerFrame1, #playerFrame2 { width: 100%; height: 100%; border: none; }
 
-        /* LOADER CINEMATOGRÁFICO ULTRA PRO (BSTREAM NEON ENGINE) */
+        /* LOADER CINEMATOGRÁFICO PURO (ESTILO ESTUDIO PROFESIONAL) */
         #loaderOverlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            background: #010409;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 20px; text-align: center;
+            z-index: 100; transition: opacity 0.4s ease; padding: 20px; text-align: center;
         }
-        .bstream-loader-box { position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
-        .cinematic-ring {
-            width: 80px; height: 80px; border: 3px solid rgba(6, 182, 212, 0.12);
-            border-top: 3px solid var(--accent); border-right: 3px solid var(--accent-secondary);
-            border-radius: 50%; animation: spin 0.85s linear infinite;
-            box-shadow: 0 0 35px var(--accent-glow);
-        }
-        .loader-brand-logo {
-            position: absolute; font-weight: 900; font-size: 13px; letter-spacing: 1px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; animation: pulse 1.5s ease-in-out infinite alternate;
+        .pure-studio-spinner {
+            width: 48px; height: 48px; border: 2px solid rgba(255, 255, 255, 0.08);
+            border-top: 2px solid #38bdf8; border-radius: 50%;
+            animation: spin 0.8s linear infinite; margin-bottom: 22px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes pulse { 0% { opacity: 0.6; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
         
-        .loader-title { font-size: clamp(1.05rem, 3.2vw, 1.25rem); font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.3px; }
-        .loader-sub { font-size: clamp(0.78rem, 2.2vw, 0.85rem); color: var(--text-muted); }
-        .latency-tag { margin-top: 14px; font-size: 10px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
+        .loader-brand-pure { font-weight: 800; font-size: 11px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+        .loader-title { font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: -0.2px; }
+        .loader-sub { font-size: clamp(0.75rem, 2vw, 0.82rem); color: var(--text-muted); }
+        .latency-tag { margin-top: 14px; font-size: 10px; font-family: monospace; background: rgba(255, 255, 255, 0.04); padding: 4px 10px; border-radius: 12px; color: #38bdf8; border: 1px solid var(--border); }
 
         .retry-action-btn {
-            margin-top: 16px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5; padding: 8px 16px; border-radius: 20px; font-size: 11.5px; font-weight: 700;
+            margin-top: 16px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5; padding: 8px 16px; border-radius: 16px; font-size: 11.5px; font-weight: 600;
             cursor: pointer; transition: all 0.2s; display: none; align-items: center; gap: 6px;
         }
         .retry-action-btn:hover { background: var(--danger); color: #fff; }
@@ -157,87 +144,87 @@
         .bstream-brand-badge {
             position: absolute; top: 12px; left: 12px; right: 12px;
             max-width: fit-content;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid var(--border); padding: 8px 14px; border-radius: 30px;
+            background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); padding: 8px 14px; border-radius: 24px;
             display: flex; align-items: center; gap: 10px; z-index: 50;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); user-select: none;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5); user-select: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .bstream-brand-badge.auto-hidden { opacity: 0; transform: translateY(-15px); pointer-events: none; }
+        .bstream-brand-badge.auto-hidden { opacity: 0; transform: translateY(-12px); pointer-events: none; }
 
-        .server-status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); flex-shrink: 0; }
-        .server-status-dot.backup { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
-        .brand-text { font-weight: 800; font-size: 12px; letter-spacing: 1px; color: var(--text-main); text-transform: uppercase; white-space: nowrap; }
-        .brand-text span { color: var(--accent); }
+        .server-status-dot { width: 7px; height: 7px; background: var(--success); border-radius: 50%; box-shadow: 0 0 6px var(--success); flex-shrink: 0; }
+        .server-status-dot.backup { background: var(--warning); box-shadow: 0 0 6px var(--warning); }
+        .brand-text { font-weight: 700; font-size: 11.5px; letter-spacing: 0.8px; color: var(--text-main); text-transform: uppercase; white-space: nowrap; }
+        .brand-text span { color: #38bdf8; }
 
         .badge-btn-group { display: flex; gap: 6px; align-items: center; }
         .action-badge-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
-            padding: 5px 10px; border-radius: 16px; display: flex; align-items: center; gap: 5px;
+            padding: 5px 10px; border-radius: 14px; display: flex; align-items: center; gap: 5px;
             cursor: pointer; color: #fff; font-size: 11px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
         }
-        .action-badge-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
+        .action-badge-btn:hover { background: #38bdf8; border-color: #38bdf8; color: #010409; }
 
         /* INDICADOR FLOTANTE INFERIOR AL OCULTAR UI */
         #hudWakeNotice {
             position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border); padding: 6px 16px; border-radius: 20px;
-            color: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-            opacity: 0; transition: all 0.4s ease; pointer-events: none; z-index: 45;
-            display: flex; align-items: center; gap: 6px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            color: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+            opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 45;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
         #hudWakeNotice.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* PANEL DESLIZANTE INFERIOR ADAPTATIVO (LANDSCAPE & PORTRAIT) */
+        /* PANEL DESLIZANTE INFERIOR ADAPTATIVO */
         .bottom-drawer {
             position: absolute; bottom: -100%; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-top: 1px solid var(--accent); padding: 22px 18px;
-            transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200;
-            border-radius: 22px 22px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.95);
+            background: rgba(13, 17, 23, 0.98); backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(56, 189, 248, 0.3); padding: 22px 18px;
+            transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200;
+            border-radius: 20px 20px 0 0; box-shadow: 0 -20px 40px rgba(0,0,0,0.9);
             max-height: 85vh; overflow-y: auto;
         }
         .bottom-drawer.open { bottom: 0; }
         .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .drawer-title { font-weight: 800; font-size: 1.05rem; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .drawer-title { font-weight: 700; font-size: 1rem; color: #fff; display: flex; align-items: center; gap: 8px; }
         .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s; }
         .close-drawer:hover { color: #fff; }
         
         .drawer-content-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
         
         .drawer-option { 
-            background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border);
-            padding: 12px 14px; border-radius: 12px;
+            background: rgba(1, 4, 9, 0.5); border: 1px solid var(--border);
+            padding: 12px 14px; border-radius: 10px;
             display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
         }
         .option-info { flex: 1; }
-        .option-title { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
+        .option-title { color: #fff; font-size: 12.5px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
         .option-desc { color: var(--text-muted); font-size: 11px; line-height: 1.35; }
-        .drawer-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+        .drawer-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: #38bdf8; cursor: pointer; margin-top: 2px; flex-shrink: 0; }
 
-        /* AJUSTES ESPECÍFICOS PARA PANTALLA HORIZONTAL (LANDSCAPE) */
+        /* AJUSTES PARA MODO HORIZONTAL (LANDSCAPE) */
         @media (orientation: landscape) and (max-height: 500px) {
             .bstream-brand-badge { top: 6px; left: 8px; right: 8px; padding: 4px 10px; border-radius: 12px; }
             .action-badge-btn { padding: 3px 8px; font-size: 10px; }
             .brand-text { font-size: 11px; }
             
-            .bottom-drawer { padding: 14px 16px; max-height: 92vh; border-radius: 16px 16px 0 0; }
+            .bottom-drawer { padding: 14px 16px; max-height: 92vh; border-radius: 14px 14px 0 0; }
             .drawer-header { margin-bottom: 10px; padding-bottom: 6px; }
-            .drawer-title { font-size: 0.95rem; }
+            .drawer-title { font-size: 0.9rem; }
             .drawer-content-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
             .drawer-option { padding: 8px 10px; }
-            .option-title { font-size: 11.5px; }
-            .option-desc { font-size: 10px; }
+            .option-title { font-size: 11px; }
+            .option-desc { font-size: 9.5px; }
             #hudWakeNotice { bottom: 8px; font-size: 10px; padding: 4px 12px; }
         }
 
         #toast {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: var(--success); color: #fff; padding: 10px 20px; border-radius: 30px;
-            font-weight: 700; font-size: 12.5px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            background: var(--success); color: #fff; padding: 10px 20px; border-radius: 24px;
+            font-weight: 700; font-size: 12.5px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10000; pointer-events: none;
             display: flex; align-items: center; gap: 8px; text-align: center;
         }
@@ -256,10 +243,10 @@
                 </div>
                 <div>
                     <h1>BStream <span>Studio</span></h1>
-                    <div style="font-size: 11px; color: var(--text-muted);">Ultimate Landscape-Adaptive Engine v5.0</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Pure Cinematic Engine v5.1</div>
                 </div>
             </div>
-            <div class="version-badge">ENTERPRISE v5.0</div>
+            <div class="version-badge">PRO EDITION</div>
         </div>
 
         <form id="genForm">
@@ -269,7 +256,7 @@
             </div>
 
             <div class="field-wrap">
-                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Failover Limpio Sin Audio Duplicado)</span></label>
+                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Failover Rápido & Seguro)</span></label>
                 <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/...">
             </div>
 
@@ -279,7 +266,7 @@
                 <div class="field-wrap">
                     <label>Nivel de Aislamiento Sandbox</label>
                     <select id="selSandbox">
-                        <option value="aggressive">Ultra Agresivo (Bloqueo Total Popups & Redirecciones)</option>
+                        <option value="aggressive">Ultra Agresivo (Bloqueo Total Popups)</option>
                         <option value="moderate">Moderado (Permite Presentación)</option>
                     </select>
                 </div>
@@ -297,12 +284,12 @@
                 <input type="text" id="customBrand" value="BStream Pro">
             </div>
 
-            <button type="submit" class="button-primary">Generar Enlace Enmascarado Enterprise v5.0</button>
+            <button type="submit" class="button-primary">Generar Enlace Enmascarado v5.1</button>
         </form>
 
         <div id="outputSection" class="hidden" style="margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
             <div class="field-wrap output-row">
-                <label>Código Iframe Protegido (Adaptativo)</label>
+                <label>Código Iframe Protegido</label>
                 <textarea id="iframeCode" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('iframeCode', this)">Copiar Iframe</button>
             </div>
@@ -319,25 +306,23 @@
     <div id="viewerContainer" class="hidden">
         <div id="preconnectContainer"></div>
 
-        <!-- Loader Cinematográfico Pro con Anillo Neón y Marca BStream -->
+        <!-- Loader Cinematográfico Puro (Estudio Profesional) -->
         <div id="loaderOverlay">
-            <div class="bstream-loader-box">
-                <div class="cinematic-ring"></div>
-                <div class="loader-brand-logo">BSTREAM</div>
-            </div>
-            <div id="loaderTitle" class="loader-title">Iniciando BStream Engine...</div>
-            <div id="loaderSub" class="loader-sub">Conectando canal de video seguro en alta definición.</div>
-            <div id="latencyTag" class="latency-tag">Midiendo latencia de red...</div>
+            <div class="pure-studio-spinner"></div>
+            <div class="loader-brand-pure">BSTREAM CINEMATIC STUDIO</div>
+            <div id="loaderTitle" class="loader-title">Conectando con el servidor...</div>
+            <div id="loaderSub" class="loader-sub">Estableciendo flujo de alta velocidad.</div>
+            <div id="latencyTag" class="latency-tag">Calculando latencia de red...</div>
             
             <button id="retryReturnBtn" class="retry-action-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
                 <span id="retryBtnText">Volver al Servidor Principal</span>
             </button>
         </div>
 
         <div id="clickToPlayOverlay"></div>
 
-        <!-- Contenedores independientes para cambio limpio -->
+        <!-- Contenedores independientes para cambio limpio sin audio fantasma -->
         <div id="wrap1" class="frame-wrapper active">
             <iframe id="playerFrame1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
@@ -363,18 +348,18 @@
             </div>
         </div>
 
-        <!-- Mini Indicador al Inactivarse Interfaz -->
+        <!-- Indicador Inferior al Inactivarse UI -->
         <div id="hudWakeNotice">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            Toca o mueve el cursor para activar controles
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            Toca la pantalla o mueve el cursor para mostrar controles
         </div>
 
-        <!-- Panel Deslizante Inferior Reorganizado para Modo Horizontal -->
+        <!-- Panel Deslizante Inferior -->
         <div id="securityDrawer" class="bottom-drawer">
             <div class="drawer-header">
                 <div class="drawer-title">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Centro Sandbox BStream v5.0
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Centro Sandbox BStream v5.1
                 </div>
                 <button id="closeDrawerBtn" class="close-drawer">&times;</button>
             </div>
@@ -413,7 +398,7 @@
                 </div>
             </div>
 
-            <p style="font-size: 10.5px; color: var(--text-muted); margin-top: 10px; text-align: center; font-family: monospace;">BStream Enterprise v5.0 • Landscape Optimized</p>
+            <p style="font-size: 10px; color: var(--text-muted); margin-top: 10px; text-align: center; font-family: monospace;">BStream Enterprise Core v5.1 • Clean Cinematic Edition</p>
         </div>
     </div>
 
@@ -491,7 +476,7 @@
                     let isLoaded = false;
                     let failoverTriggered = false;
 
-                    // Inicialización del Servidor 1 únicamente para ahorro de banda y prevención de audio fantasma
+                    // Asignación segura inicial del servidor 1
                     frame1.src = url1;
 
                     function showLoader(title, subtitle, showRetry = false, retryText = "") {
@@ -528,19 +513,18 @@
                         }
                     });
 
-                    // Timeout automático: Servidor Principal -> Servidor de Respaldo
+                    // Timeout automático Servidor 1 -> Servidor 2
                     let failoverTimer = setTimeout(() => {
                         if (!isLoaded && url2 && activeServer === 1 && !failoverTriggered) {
                             failoverTriggered = true;
                             switchToBackup(true);
                         } else if (!isLoaded && !url2 && activeServer === 1) {
-                            showLoader("⚠️ Servidor principal con demora", "Puedes reintentar la conexión manualmente.", true, "Reintentar Servidor 1");
+                            showLoader("⚠️ Demora en Servidor Principal", "Puedes reintentar la conexión manualmente.", true, "Reintentar Servidor 1");
                         }
-                    }, 5500);
+                    }, 6000);
 
                     let backupTimeout = null;
 
-                    // CAMBIO A SERVIDOR DE RESPALDO (LIMPIANDO SERVIDOR 1 PARA CORTAR AUDIO)
                     function switchToBackup(isAuto = false) {
                         if (!url2) {
                             if (!isAuto) showToast("ℹ️ No hay un servidor de respaldo configurado.");
@@ -549,7 +533,7 @@
                         activeServer = 2;
                         isLoaded = false;
 
-                        // CORRECCIÓN BUG AUDIO: Destruir src del iframe 1 inmediatamente
+                        // Destruir buffer del frame 1 para cortar audio
                         frame1.src = "about:blank";
 
                         wrap1.classList.remove("active");
@@ -558,10 +542,10 @@
                         serverDot.title = "Servidor de Respaldo Activo";
                         serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
 
-                        // Cargar iframe 2 en limpio
+                        // Cargar servidor 2 limpio
                         frame2.src = url2;
 
-                        showLoader("⚠️ Conectando a Respaldo...", "Iniciando Servidor 2 sin residuos de audio...", true, "Volver al Servidor Principal");
+                        showLoader("Conectando con Servidor de Respaldo...", "Estabilizando enlace secundario...", true, "Volver al Servidor Principal");
                         
                         if (isAuto) {
                             showToast("⚠️ Servidor 1 lento. Conmutando a Respaldo...");
@@ -571,18 +555,17 @@
 
                         backupTimeout = setTimeout(() => {
                             if (!isLoaded && activeServer === 2) {
-                                showLoader("⚠️ El servidor de respaldo también tarda", "El enlace puede estar congestionado.", true, "Volver al Servidor Principal");
+                                showLoader("⚠️ El servidor de respaldo no responde", "El enlace puede estar inactivo.", true, "Volver al Servidor Principal");
                             }
-                        }, 6000);
+                        }, 7000);
                     }
 
-                    // RETORNO A SERVIDOR PRINCIPAL (LIMPIANDO SERVIDOR 2 PARA CORTAR AUDIO)
                     function switchToPrimary() {
                         clearTimeout(backupTimeout);
                         activeServer = 1;
                         isLoaded = false;
 
-                        // CORRECCIÓN BUG AUDIO: Destruir src del iframe 2 inmediatamente
+                        // Destruir buffer del frame 2 para cortar audio
                         frame2.src = "about:blank";
 
                         wrap2.classList.remove("active");
@@ -591,14 +574,12 @@
                         serverDot.title = "Servidor Principal Activo";
                         serverBtnLabel.innerText = "Servidor 1";
 
-                        showLoader("🔄 Volviendo al Servidor Principal...", "Recargando Servidor 1 de origen...", false);
+                        showLoader("Volviendo al Servidor Principal...", "Restableciendo canal de origen...", false);
                         showToast("🔄 Regresando al Servidor Principal");
 
-                        // Cargar iframe 1 en limpio
                         frame1.src = url1;
                     }
 
-                    // Botón de cambio en la barra superior
                     document.getElementById("switchServerBtn").addEventListener("click", () => {
                         if (activeServer === 1) {
                             switchToBackup(false);
@@ -607,41 +588,39 @@
                         }
                     });
 
-                    // Botón de reintento en el loader
                     retryReturnBtn.addEventListener("click", () => {
                         if (activeServer === 1) {
                             showLoader("Reintentando conexión...", "Cargando Servidor 1...", false);
                             frame1.src = url1;
+                            setTimeout(() => hideLoader(), 1500);
                         } else {
                             switchToPrimary();
                         }
                     });
 
-                    // SISTEMA DE AUTO-DESVANECIMIENTO DE UI TRAS 30 SEGUNDOS
+                    // SISTEMA DE AUTO-DESVANECIMIENTO CORREGIDO Y ROBUSTO
                     let idleTimer = null;
 
-                    function resetIdleTimer() {
+                    function wakeUpUI() {
                         brandBadge.classList.remove("auto-hidden");
                         hudWakeNotice.classList.remove("visible");
                         clearTimeout(idleTimer);
 
                         idleTimer = setTimeout(() => {
-                            // Solo ocultar si la ventana flotante de configuración no está abierta
                             const drawer = document.getElementById("securityDrawer");
                             if (!drawer.classList.contains("open")) {
                                 brandBadge.classList.add("auto-hidden");
                                 hudWakeNotice.classList.add("visible");
                             }
-                        }, 30000); // 30 segundos exactos
+                        }, 30000); // 30 segundos
                     }
 
-                    // Escuchar eventos de interacción para despertar la interfaz
-                    ["mousemove", "touchstart", "click", "keydown"].forEach(evt => {
-                        window.addEventListener(evt, resetIdleTimer, { passive: true });
+                    // Escuchar cualquier interacción en el visor completo para despertar la UI instantáneamente
+                    ["mousemove", "touchstart", "click", "scroll", "pointerdown"].forEach(evt => {
+                        window.addEventListener(evt, wakeUpUI, { passive: true });
                     });
-                    resetIdleTimer();
+                    wakeUpUI();
 
-                    // Pantalla completa al primer toque opcional
                     const clickOverlay = document.getElementById("clickToPlayOverlay");
                     if(forceFs) {
                         clickOverlay.addEventListener("click", () => {
@@ -654,11 +633,10 @@
                         clickOverlay.remove();
                     }
 
-                    // Panel deslizante de seguridad
                     const drawer = document.getElementById("securityDrawer");
                     document.getElementById("openDrawerBtn").addEventListener("click", () => {
                         drawer.classList.add("open");
-                        resetIdleTimer();
+                        wakeUpUI();
                     });
                     document.getElementById("closeDrawerBtn").addEventListener("click", () => drawer.classList.remove("open"));
 
@@ -680,7 +658,6 @@
                 return;
             }
 
-            // Generador Handler
             const genForm = document.getElementById("genForm");
             genForm.addEventListener("submit", (e) => {
                 e.preventDefault();
@@ -705,7 +682,7 @@
                 document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>`;
                 document.getElementById("directLink").value = secureMaskedUrl;
                 document.getElementById("outputSection").classList.remove("hidden");
-                showToast("¡Enlace Enterprise v5.0 generado con éxito!");
+                showToast("¡Enlace Enterprise v5.1 generado con éxito!");
             });
         });
     </script>
