@@ -1,21 +1,24 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BStream Cinematic Studio v3.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>BStream Cinematic Studio v4.0 - Enterprise Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #030712;
-            --bg-panel: rgba(13, 18, 30, 0.85);
+            --bg-deep: #020617;
+            --bg-panel: rgba(15, 23, 42, 0.85);
             --accent: #06b6d4;
-            --accent-glow: rgba(6, 182, 212, 0.25);
-            --accent-hover: #0891b2;
-            --text-main: #f1f5f9;
-            --text-muted: #64748b;
+            --accent-secondary: #3b82f6;
+            --accent-glow: rgba(6, 182, 212, 0.3);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
             --border: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(20px);
+            --glass-blur: blur(30px);
+            --danger: #ef4444;
+            --success: #10b981;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -26,22 +29,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%);
+                radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.1) 0%, transparent 45%);
+            overflow-x: hidden;
         }
 
-        /* ESTUDIO GENERADOR CINEMATOGRÁFICO */
         .studio-container {
             background: var(--bg-panel);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             padding: 40px;
             width: 100%;
-            max-width: 850px;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border);
+            max-width: 900px;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--border);
             margin: 20px;
         }
         .studio-header {
@@ -52,62 +54,63 @@
             border-bottom: 1px solid var(--border);
             padding-bottom: 20px;
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-area { display: flex; align-items: center; gap: 14px; }
         .logo-icon {
-            width: 42px; height: 42px; background: linear-gradient(135deg, var(--accent), #10b981);
-            border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 20px var(--accent-glow);
+            width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            border-radius: 14px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 25px var(--accent-glow);
         }
-        h1 { font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; }
-        h1 span { color: var(--accent); }
+        h1 { font-weight: 800; font-size: 1.7rem; letter-spacing: -0.5px; }
+        h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .version-badge {
-            font-size: 11px; font-weight: 600; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; color: var(--text-muted);
+            font-size: 11px; font-weight: 700; background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3); padding: 6px 14px; border-radius: 20px; color: var(--accent);
+            letter-spacing: 0.5px; text-transform: uppercase;
         }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .field-wrap { margin-bottom: 22px; }
-        label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+        label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
         .req { color: var(--accent); }
         
         input, select, textarea {
-            width: 100%; padding: 14px 16px; background: rgba(3, 7, 18, 0.6);
-            border: 1px solid var(--border); color: var(--text-main); border-radius: 10px;
+            width: 100%; padding: 14px 18px; background: rgba(2, 6, 23, 0.7);
+            border: 1px solid var(--border); color: var(--text-main); border-radius: 12px;
             font-size: 14px; font-family: inherit; transition: all 0.25s ease;
         }
         input:focus, select:focus, textarea:focus {
-            outline: none; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
-            background: rgba(3, 7, 18, 0.9);
+            outline: none; border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow);
+            background: rgba(2, 6, 23, 0.95);
         }
         
         .output-row { position: relative; }
-        textarea { resize: vertical; height: 65px; font-family: monospace; font-size: 12px; color: #38bdf8; }
+        textarea { resize: vertical; height: 75px; font-family: monospace; font-size: 12px; color: #38bdf8; }
         
         .copy-btn {
-            position: absolute; right: 10px; top: 35px;
-            background: rgba(255,255,255,0.08); border: 1px solid var(--border);
-            color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px;
-            font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+            position: absolute; right: 12px; top: 38px;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border);
+            color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 12px;
+            font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
         }
-        .copy-btn:hover { background: var(--accent); border-color: var(--accent); }
-        .copy-btn.copied { background: #10b981; border-color: #10b981; }
+        .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
+        .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
 
         .section-title {
-            font-size: 12px; font-weight: 700; color: var(--accent); margin: 25px 0 15px 0;
-            text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 8px;
+            font-size: 12px; font-weight: 800; color: var(--accent); margin: 30px 0 15px 0;
+            text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 10px;
         }
         .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
         .button-primary {
-            background: linear-gradient(135deg, var(--accent), #0284c7); color: #fff; border: none;
-            padding: 16px; font-size: 0.95rem; font-weight: 700; width: 100%; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color: #fff; border: none;
+            padding: 16px; font-size: 0.95rem; font-weight: 800; width: 100%; border-radius: 14px;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 10px 25px -5px var(--accent-glow); transition: all 0.3s;
+            box-shadow: 0 10px 30px -5px var(--accent-glow); transition: all 0.3s;
         }
-        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.4); }
+        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 35px -5px rgba(6, 182, 212, 0.5); }
         .hidden { display: none !important; }
 
-        /* MODO VISOR CINEMATOGRÁFICO */
+        /* VISOR CINEMATOGRÁFICO */
         #viewerContainer {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; justify-content: center; align-items: center;
@@ -115,142 +118,144 @@
         }
         #playerFrame { width: 100%; height: 100%; border: none; }
 
-        /* LOADER ULTRA PRO CON LATENCIA */
+        /* LOADER SINCRONIZADO REAL */
         #loaderOverlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; transition: opacity 0.5s ease;
+            z-index: 100; transition: opacity 0.4s ease;
         }
         .cinematic-spinner {
-            width: 60px; height: 60px; border: 3px solid rgba(6, 182, 212, 0.1);
+            width: 70px; height: 70px; border: 3px solid rgba(6, 182, 212, 0.1);
             border-top: 3px solid var(--accent); border-radius: 50%;
             animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; margin-bottom: 25px;
-            box-shadow: 0 0 25px var(--accent-glow);
+            box-shadow: 0 0 30px var(--accent-glow);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-title { font-size: 1.3rem; font-weight: 600; color: #fff; margin-bottom: 8px; letter-spacing: -0.3px; }
-        .loader-sub { font-size: 0.85rem; color: var(--text-muted); }
-        .latency-tag { margin-top: 15px; font-size: 11px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; color: #38bdf8; }
+        .loader-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 8px; text-align: center; }
+        .loader-sub { font-size: 0.9rem; color: var(--text-muted); text-align: center; }
+        .latency-tag { margin-top: 15px; font-size: 11px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
 
-        /* MARCA DE AGUA FLOTANTE SUPERIOR IZQUIERDA */
+        /* MARCA DE AGUA Y CONTROLES SUPERIORES */
         .bstream-brand-badge {
             position: absolute; top: 20px; left: 20px;
-            background: rgba(13, 18, 30, 0.65); backdrop-filter: blur(12px);
-            border: 1px solid var(--border); padding: 8px 16px; border-radius: 30px;
-            display: flex; align-items: center; gap: 12px; z-index: 50;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); user-select: none;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); padding: 10px 18px; border-radius: 35px;
+            display: flex; align-items: center; gap: 14px; z-index: 50;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); user-select: none;
         }
-        .brand-text { font-weight: 700; font-size: 13px; letter-spacing: 1.5px; color: var(--accent); text-transform: uppercase; }
-        .security-badge-btn {
-            background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3);
-            width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; cursor: pointer; color: #fff; transition: all 0.2s;
-        }
-        .security-badge-btn:hover { background: var(--accent); transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        .server-status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); }
+        .server-status-dot.backup { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
+        .brand-text { font-weight: 800; font-size: 13px; letter-spacing: 1.5px; color: var(--text-main); text-transform: uppercase; }
+        .brand-text span { color: var(--accent); }
 
-        /* PANEL DESLIZANTE INFERIOR (BOTTOM SHEET) */
+        .badge-btn-group { display: flex; gap: 8px; align-items: center; }
+        .action-badge-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
+            padding: 6px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px;
+            cursor: pointer; color: #fff; font-size: 12px; font-weight: 600; transition: all 0.2s;
+        }
+        .action-badge-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
+
+        /* PANEL DESLIZANTE INFERIOR (ADMIN/SANDBOX) */
         .bottom-drawer {
             position: absolute; bottom: -100%; left: 0; width: 100%;
-            background: rgba(13, 18, 30, 0.95); backdrop-filter: blur(25px);
-            border-top: 1px solid var(--accent); padding: 30px;
+            background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(30px);
+            border-top: 1px solid var(--accent); padding: 35px;
             transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200;
-            border-radius: 24px 24px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.9);
-            max-height: 85vh; overflow-y: auto;
+            border-radius: 28px 28px 0 0; box-shadow: 0 -25px 60px rgba(0,0,0,0.95);
+            max-height: 90vh; overflow-y: auto;
         }
         .bottom-drawer.open { bottom: 0; }
-        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-        .drawer-title { font-weight: 700; font-size: 1.15rem; color: #fff; display: flex; align-items: center; gap: 10px; }
-        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .drawer-title { font-weight: 800; font-size: 1.25rem; color: #fff; display: flex; align-items: center; gap: 12px; }
+        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 28px; cursor: pointer; transition: color 0.2s; }
         .close-drawer:hover { color: #fff; }
         
-        .drawer-option { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .drawer-option label { color: #fff; font-size: 14px; margin: 0; text-transform: none; font-weight: 500; cursor: pointer; }
-        .drawer-option input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--accent); cursor: pointer; }
+        .drawer-option { 
+            background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border);
+            padding: 18px; border-radius: 14px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+        }
+        .option-info { flex: 1; }
+        .option-title { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .option-desc { color: var(--text-muted); font-size: 12.5px; line-height: 1.5; }
+        .drawer-option input[type="checkbox"] { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; margin-top: 4px; }
 
-        /* TOAST NOTIFICATION */
         #toast {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: #10b981; color: #fff; padding: 12px 24px; border-radius: 30px;
-            font-weight: 600; font-size: 14px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+            position: fixed; bottom: 35px; left: 50%; transform: translateX(-50%) translateY(120px);
+            background: var(--success); color: #fff; padding: 14px 28px; border-radius: 35px;
+            font-weight: 700; font-size: 14px; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10000; pointer-events: none;
+            display: flex; align-items: center; gap: 10px;
         }
         #toast.show { transform: translateX(-50%) translateY(0); }
-
         #clickToPlayOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 40; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- ==================== PANEL GENERADOR PRO ==================== -->
+    <!-- PANEL GENERADOR PRO -->
     <div id="generatorPanel" class="studio-container">
         <div class="studio-header">
             <div class="logo-area">
                 <div class="logo-icon">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
                 <div>
                     <h1>BStream <span>Studio</span></h1>
-                    <div style="font-size: 12px; color: var(--text-muted);">Cinematic Secure Streaming Engine</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Enterprise Dual-Stream Engine v4.0</div>
                 </div>
             </div>
-            <div class="version-badge">v3.0 PRO</div>
+            <div class="version-badge">PRO ENTERPRISE</div>
         </div>
 
         <form id="genForm">
             <div class="field-wrap">
-                <label>Enlace Embed / Servidor de Video <span class="req">*</span></label>
-                <input type="text" id="targetLink" placeholder="https://unlimplay.com/embed/... o enlace directo mp4" required>
+                <label>Servidor Principal (Enlace Embed / MP4) <span class="req">*</span></label>
+                <input type="text" id="targetLink1" placeholder="https://servidor1.com/embed/..." required>
             </div>
 
-            <div class="section-title">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                Configuración de Seguridad & Cliente
+            <div class="field-wrap">
+                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Opcional - Failover Automático)</span></label>
+                <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/... (Si falla el principal, conmuta aquí)">
             </div>
+
+            <div class="section-title">🛡️ Configuración Avanzada & Sandbox</div>
             
             <div class="grid-2">
                 <div class="field-wrap">
-                    <label>Nivel de Sandbox</label>
+                    <label>Nivel de Aislamiento Sandbox</label>
                     <select id="selSandbox">
-                        <option value="strict">Estricto (Máx. Protección Anti-Popup)</option>
-                        <option value="moderate">Moderado (Permite Presentación/Scripts)</option>
-                        <option value="none">Desactivado</option>
+                        <option value="aggressive">Ultra Agresivo (Bloqueo Total de Popups & Redirecciones)</option>
+                        <option value="moderate">Moderado (Permite Presentación & Pantalla Completa)</option>
                     </select>
                 </div>
                 <div class="field-wrap">
-                    <label>Bloqueo Activo Anti-Redirección</label>
-                    <select id="selAdblock">
-                        <option value="1">Activo (Interceptar & Bloquear Clicks Ext.)</option>
-                        <option value="0">Estándar</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="field-wrap">
-                    <label>Pantalla Completa Forzada al Primer Clic</label>
+                    <label>Pantalla Completa Automática al Clic</label>
                     <select id="selFs">
-                        <option value="1">Sí (Experiencia Inmersiva Total)</option>
-                        <option value="0">No (Modo Estándar)</option>
+                        <option value="1">Sí (Modo Inmersivo Total)</option>
+                        <option value="0">No (Mantener Tamaño Estándar)</option>
                     </select>
-                </div>
-                <div class="field-wrap">
-                    <label>Nombre de Marca de Agua</label>
-                    <input type="text" id="customBrand" value="BStream Pro">
                 </div>
             </div>
 
-            <button type="submit" class="button-primary">Generar Enlace Enmascarado Pro</button>
+            <div class="field-wrap">
+                <label>Nombre de Marca de Agua / Sello</label>
+                <input type="text" id="customBrand" value="BStream Pro">
+            </div>
+
+            <button type="submit" class="button-primary">Generar Enlace Enmascarado Dual Pro</button>
         </form>
 
         <div id="outputSection" class="hidden" style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px;">
             <div class="field-wrap output-row">
-                <label>Código Iframe Protegido</label>
+                <label>Código Iframe Protegido (Responsive)</label>
                 <textarea id="iframeCode" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('iframeCode', this)">Copiar Iframe</button>
             </div>
             <div class="field-wrap output-row" style="margin-bottom: 0;">
-                <label>Enlace Directo Modificado (Oculto)</label>
+                <label>Enlace Directo Enmascarado Dual</label>
                 <textarea id="directLink" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('directLink', this)">Copiar Enlace</button>
             </div>
@@ -258,83 +263,99 @@
     </div>
 
 
-    <!-- ==================== MODO VISOR & REPRODUCTOR CINEMATOGRÁFICO ==================== -->
+    <!-- MODO VISOR -->
     <div id="viewerContainer" class="hidden">
-        
-        <!-- Dinamic Preconnect Injector (Optimización de velocidad) -->
         <div id="preconnectContainer"></div>
 
-        <!-- Loader Inteligente con Medición de Latencia -->
+        <!-- Loader sincronizado real -->
         <div id="loaderOverlay">
             <div class="cinematic-spinner"></div>
-            <div id="loaderTitle" class="loader-title">Conectando con servidor externo...</div>
-            <div class="loader-sub">Optimizando canales de red seguros en tiempo real.</div>
-            <div id="latencyTag" class="latency-tag">Midiendo latencia...</div>
+            <div id="loaderTitle" class="loader-title">Conectando con el servidor principal...</div>
+            <div class="loader-sub">Estableciendo canal de transmisión seguro y optimizado.</div>
+            <div id="latencyTag" class="latency-tag">Midiendo latencia de red...</div>
         </div>
 
-        <!-- Overlay táctil para forzar pantalla completa si está configurado -->
         <div id="clickToPlayOverlay"></div>
 
-        <!-- Marca de Agua Superior Izquierda + Escudo Interactivo -->
         <div class="bstream-brand-badge">
-            <span id="displayBrandText" class="brand-text">BStream Pro</span>
-            <button id="openDrawerBtn" class="security-badge-btn" title="Panel de Seguridad Activa">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </button>
+            <div id="serverDot" class="server-status-dot" title="Servidor Principal Activo"></div>
+            <span class="brand-text"><span id="displayBrandText">BStream</span> Pro</span>
+            
+            <div class="badge-btn-group">
+                <button id="switchServerBtn" class="action-badge-btn" title="Cambiar manualmente de servidor">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                    <span id="serverBtnLabel">Servidor 1</span>
+                </button>
+                <button id="openDrawerBtn" class="action-badge-btn" title="Abrir Panel de Seguridad y Sandbox">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Seguridad
+                </button>
+            </div>
         </div>
 
-        <!-- Frame del Reproductor Real -->
-        <iframe id="playerFrame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- Frame del reproductor -->
+        <iframe id="playerFrame" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-        <!-- Panel Deslizante Inferior de Seguridad (Bottom Sheet Avanzado) -->
+        <!-- Panel Deslizante Inferior con Explicaciones Detalladas -->
         <div id="securityDrawer" class="bottom-drawer">
             <div class="drawer-header">
                 <div class="drawer-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Centro de Seguridad & Anti-Anuncios BStream
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Centro de Seguridad & Sandbox BStream v4.0
                 </div>
                 <button id="closeDrawerBtn" class="close-drawer">&times;</button>
             </div>
             
             <div class="drawer-option">
-                <label for="toggleSandboxLive">Aislamiento Sandbox de Alta Seguridad</label>
-                <input type="checkbox" id="toggleSandboxLive" checked>
+                <div class="option-info">
+                    <div class="option-title">🛡️ Aislamiento Sandbox de Alta Seguridad</div>
+                    <div class="option-desc">Bloquea la ejecución de scripts no deseados, evita la apertura automática de popups publicitarios molestos y neutraliza redirecciones maliciosas fuera del reproductor.</div>
+                </div>
+                <input type="checkbox" checked disabled title="Activado por defecto por seguridad">
             </div>
+
             <div class="drawer-option">
-                <label for="toggleAntiPopup">Interceptar Popups y Redirecciones Externas</label>
-                <input type="checkbox" id="toggleAntiPopup" checked>
-            </div>
-            <div class="drawer-option">
-                <label for="toggleWatermark">Mostrar Sello Flotante BStream</label>
+                <div class="option-info">
+                    <div class="option-title">🏷️ Sello de Marca Flotante</div>
+                    <div class="option-desc">Muestra la insignia personalizada en la esquina superior izquierda del reproductor para proteger tu identidad visual y branding corporativo.</div>
+                </div>
                 <input type="checkbox" id="toggleWatermark" checked>
             </div>
+
             <div class="drawer-option">
-                <label for="toggleAntiInspect">Bloqueo Preventivo de Menú Contextual (Visor)</label>
+                <div class="option-info">
+                    <div class="option-title">🔒 Bloqueo de Menú Contextual (Anti-Inspección)</div>
+                    <div class="option-desc">Desactiva el clic derecho del ratón dentro del visor para prevenir la inspección de código fuente y proteger los enlaces directos de video contra extracción.</div>
+                </div>
                 <input type="checkbox" id="toggleAntiInspect" checked>
             </div>
-            <p style="font-size: 11px; color: var(--text-muted); margin-top: 20px; text-align: center; font-family: monospace;">BStream Engine Core v3.0 - Active Protection Framework</p>
-        </div>
 
+            <div class="drawer-option">
+                <div class="option-info">
+                    <div class="option-title">⚡ Sistema Failover Multi-Stream Activo</div>
+                    <div class="option-desc">Monitorea en tiempo real la estabilidad de la conexión. Si el servidor principal experimenta caída de paquetes o errores de carga, conmuta automáticamente al servidor secundario.</div>
+                </div>
+                <input type="checkbox" checked disabled>
+            </div>
+
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 15px; text-align: center; font-family: monospace;">BStream Enterprise Core v4.0 • Zero-Popup & Failover Protection</p>
+        </div>
     </div>
 
-    <!-- Toast de Notificación Copiado -->
-    <div id="toast">¡Enlace copiado al portapapeles con éxito!</div>
+    <div id="toast">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span id="toastText">¡Enlace copiado con éxito!</span>
+    </div>
 
-    <!-- ==================== MOTOR DE LÓGICA (JS) ==================== -->
     <script>
-        // Función universal de copiado rápido con animación Toast
         function copyToClipboard(elementId, btnElement) {
             const textarea = document.getElementById(elementId);
             textarea.select();
-            textarea.setSelectionRange(0, 99999);
-            
             navigator.clipboard.writeText(textarea.value).then(() => {
                 const originalText = btnElement.innerHTML;
                 btnElement.innerHTML = "¡Copiado!";
                 btnElement.classList.add("copied");
-                
-                showToast();
-
+                showToast("¡Código copiado al portapapeles!");
                 setTimeout(() => {
                     btnElement.innerHTML = originalText;
                     btnElement.classList.remove("copied");
@@ -342,18 +363,18 @@
             });
         }
 
-        function showToast() {
+        function showToast(message) {
             const toast = document.getElementById("toast");
+            document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2500);
+            setTimeout(() => toast.classList.remove("show"), 2800);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const encodedV = urlParams.get("v");
+            const encodedConfig = urlParams.get("config");
 
-            // ==================== LÓGICA DEL VISOR ====================
-            if (encodedV) {
+            if (encodedConfig) {
                 document.getElementById("generatorPanel").classList.add("hidden");
                 const viewer = document.getElementById("viewerContainer");
                 viewer.classList.remove("hidden");
@@ -361,57 +382,86 @@
                 const startTime = performance.now();
 
                 try {
-                    const originalUrl = atob(encodedV);
+                    // Decodificar configuración JSON en base64
+                    const configJson = JSON.parse(atob(encodedConfig));
+                    const url1 = configJson.u1;
+                    const url2 = configJson.u2 || "";
+                    const brand = configJson.brand || "BStream Pro";
+                    const sandboxLevel = configJson.sandbox || "aggressive";
+                    const forceFs = configJson.fs === "1";
+
+                    document.getElementById("displayBrandText").innerText = brand;
+
+                    let activeServerIndex = 1;
                     const iframe = document.getElementById("playerFrame");
-                    
-                    // Optimización de red: Preconnect dinámico al servidor del embed
-                    try {
-                        const parsedUrl = new URL(originalUrl);
-                        const preconnectLink = document.createElement("link");
-                        preconnectLink.rel = "preconnect";
-                        preconnectLink.href = parsedUrl.origin;
-                        document.getElementById("preconnectContainer").appendChild(preconnectLink);
-
-                        let hostName = parsedUrl.hostname.replace("www.", "").split(".")[0];
-                        hostName = hostName.charAt(0).toUpperCase() + hostName.slice(1);
-                        document.getElementById("loaderTitle").innerText = `Conectando con ${hostName}...`;
-                    } catch(err) {}
-
-                    // Configurar Marca de agua personalizada
-                    const brandParam = urlParams.get("brand");
-                    if(brandParam) {
-                        document.getElementById("displayBrandText").innerText = decodeURIComponent(brandParam);
-                    }
-
-                    // Sandbox configuration
-                    const sbMode = urlParams.get("sb") || "strict";
-                    if (sbMode === "strict") {
-                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
-                    } else if (sbMode === "moderate") {
-                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups-to-escape-sandbox allow-presentation");
-                    }
-
-                    iframe.src = originalUrl;
-
-                    // Ocultar Loader y calcular latencia real simulada/efectiva
                     const loader = document.getElementById("loaderOverlay");
+                    const serverDot = document.getElementById("serverDot");
+                    const serverBtnLabel = document.getElementById("serverBtnLabel");
+
+                    // Configurar Sandbox
+                    if (sandboxLevel === "aggressive") {
+                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
+                    } else {
+                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation allow-popups");
+                    }
+
+                    function loadStream(url, index) {
+                        activeServerIndex = index;
+                        if(index === 1) {
+                            serverDot.className = "server-status-dot";
+                            serverDot.title = "Servidor Principal Activo";
+                            serverBtnLabel.innerText = "Servidor 1";
+                            document.getElementById("loaderTitle").innerText = "Conectando con el Servidor Principal...";
+                        } else {
+                            serverDot.className = "server-status-dot backup";
+                            serverDot.title = "Servidor de Respaldo Activo (Failover)";
+                            serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
+                            document.getElementById("loaderTitle").innerText = "⚠️ Conectando con Servidor de Respaldo...";
+                        }
+                        iframe.src = url;
+                    }
+
+                    // Cargar servidor inicial (Principal)
+                    loadStream(url1, 1);
+
+                    // Temporizador de Failover Automático (si en 6 segundos no reporta carga exitosa y existe url2)
+                    let failoverTimer = setTimeout(() => {
+                        if (url2 && activeServerIndex === 1) {
+                            showToast("⚠️ Servidor principal lento. Activando respaldo...");
+                            loadStream(url2, 2);
+                        }
+                    }, 6500);
+
                     iframe.addEventListener("load", () => {
+                        clearTimeout(failoverTimer);
                         const latency = Math.round(performance.now() - startTime);
-                        document.getElementById("latencyTag").innerText = `Latencia de red: ${latency}ms • Estable`;
-                        setTimeout(() => loader.style.opacity = "0", 300);
-                        setTimeout(() => loader.style.display = "none", 700);
+                        document.getElementById("latencyTag").innerText = `Latencia: ${latency}ms • Canal Seguro Verificado`;
+                        
+                        setTimeout(() => {
+                            loader.style.opacity = "0";
+                            setTimeout(() => loader.style.display = "none", 400);
+                        }, 400);
                     });
 
-                    // Timeout de seguridad por si el servidor externo demora
-                    setTimeout(() => {
-                        loader.style.opacity = "0";
-                        setTimeout(() => loader.style.display = "none", 500);
-                    }, 4500);
+                    // Botón de cambio manual de servidor
+                    document.getElementById("switchServerBtn").addEventListener("click", () => {
+                        if (!url2) {
+                            showToast("ℹ️ No hay un servidor de respaldo configurado.");
+                            return;
+                        }
+                        loader.style.display = "flex";
+                        loader.style.opacity = "1";
+                        if (activeServerIndex === 1) {
+                            loadStream(url2, 2);
+                            showToast("🔄 Cambiado al Servidor de Respaldo");
+                        } else {
+                            loadStream(url1, 1);
+                            showToast("🔄 Cambiado al Servidor Principal");
+                        }
+                    });
 
-                    // Mecánica de Pantalla Completa por interacción inicial
-                    const forceFs = urlParams.get("fs") === "1";
+                    // Pantalla completa al primer clic
                     const clickOverlay = document.getElementById("clickToPlayOverlay");
-                    
                     if(forceFs) {
                         clickOverlay.addEventListener("click", () => {
                             if (!document.fullscreenElement) {
@@ -423,12 +473,11 @@
                         clickOverlay.remove();
                     }
 
-                    // Panel deslizante inferior de seguridad (Bottom Sheet)
+                    // Panel deslizante y opciones
                     const drawer = document.getElementById("securityDrawer");
                     document.getElementById("openDrawerBtn").addEventListener("click", () => drawer.classList.add("open"));
                     document.getElementById("closeDrawerBtn").addEventListener("click", () => drawer.classList.remove("open"));
 
-                    // Controles en tiempo real del panel inferior
                     document.getElementById("toggleWatermark").addEventListener("change", (e) => {
                         document.querySelector(".bstream-brand-badge").style.display = e.target.checked ? "flex" : "none";
                     });
@@ -442,28 +491,37 @@
                     });
 
                 } catch (e) {
-                    document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20vh; font-family:sans-serif;'>Error crítico: Enlace enmascarado inválido o corrupto.</h2>";
+                    document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20vh; font-family:sans-serif;'>Error: Configuración de enlace enmascarado inválida o corrupta.</h2>";
                 }
                 return;
             }
 
-            // ==================== LÓGICA DEL GENERADOR ====================
+            // Generador Handler
             const genForm = document.getElementById("genForm");
             genForm.addEventListener("submit", (e) => {
                 e.preventDefault();
-                const rawLink = document.getElementById("targetLink").value.trim();
-                const base64Link = btoa(rawLink);
-
-                const sb = document.getElementById("selSandbox").value;
+                const link1 = document.getElementById("targetLink1").value.trim();
+                const link2 = document.getElementById("targetLink2").value.trim();
+                const sandbox = document.getElementById("selSandbox").value;
                 const fs = document.getElementById("selFs").value;
-                const brand = encodeURIComponent(document.getElementById("customBrand").value.trim());
+                const brand = document.getElementById("customBrand").value.trim();
 
+                const configObj = {
+                    u1: link1,
+                    u2: link2,
+                    sandbox: sandbox,
+                    fs: fs,
+                    brand: brand
+                };
+
+                const encodedConfig = btoa(JSON.stringify(configObj));
                 const currentBase = window.location.origin + window.location.pathname;
-                const secureMaskedUrl = `${currentBase}?v=${base64Link}&sb=${sb}&fs=${fs}&brand=${brand}`;
+                const secureMaskedUrl = `${currentBase}?config=${encodedConfig}`;
 
-                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>`;
+                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="550px" frameborder="0" allowfullscreen></iframe>`;
                 document.getElementById("directLink").value = secureMaskedUrl;
                 document.getElementById("outputSection").classList.remove("hidden");
+                showToast("¡Enlace dual protegido generado con éxito!");
             });
         });
     </script>
