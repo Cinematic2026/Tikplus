@@ -1,26 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BStream Cinematic Studio v4.0 - Enterprise Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BStream Cinematic Studio v4.2 - Enterprise Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-deep: #020617;
-            --bg-panel: rgba(15, 23, 42, 0.85);
+            --bg-panel: rgba(15, 23, 42, 0.9);
             --accent: #06b6d4;
             --accent-secondary: #3b82f6;
-            --accent-glow: rgba(6, 182, 212, 0.3);
+            --accent-glow: rgba(6, 182, 212, 0.25);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(30px);
-            --danger: #ef4444;
+            --glass-blur: blur(25px);
             --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             background: var(--bg-deep);
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -30,164 +30,187 @@
             justify-content: center;
             align-items: center;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.1) 0%, transparent 45%);
+                radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.08) 0%, transparent 45%);
             overflow-x: hidden;
+            padding: 12px;
         }
 
         .studio-container {
             background: var(--bg-panel);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             width: 100%;
             max-width: 900px;
-            border-radius: 24px;
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px var(--border);
-            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border);
+            margin: auto;
         }
         .studio-header {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 25px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            padding-bottom: 18px;
         }
-        .logo-area { display: flex; align-items: center; gap: 14px; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 48px; height: 48px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 14px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 25px var(--accent-glow);
+            width: 42px; height: 42px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 0 20px var(--accent-glow);
+            flex-shrink: 0;
         }
-        h1 { font-weight: 800; font-size: 1.7rem; letter-spacing: -0.5px; }
+        h1 { font-weight: 800; font-size: clamp(1.3rem, 4vw, 1.6rem); letter-spacing: -0.5px; }
         h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .version-badge {
-            font-size: 11px; font-weight: 700; background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3); padding: 6px 14px; border-radius: 20px; color: var(--accent);
+            font-size: 10px; font-weight: 700; background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3); padding: 5px 12px; border-radius: 20px; color: var(--accent);
             letter-spacing: 0.5px; text-transform: uppercase;
         }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .field-wrap { margin-bottom: 22px; }
-        label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
+        .field-wrap { margin-bottom: 18px; }
+        label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
         .req { color: var(--accent); }
         
         input, select, textarea {
-            width: 100%; padding: 14px 18px; background: rgba(2, 6, 23, 0.7);
-            border: 1px solid var(--border); color: var(--text-main); border-radius: 12px;
+            width: 100%; padding: 12px 15px; background: rgba(2, 6, 23, 0.7);
+            border: 1px solid var(--border); color: var(--text-main); border-radius: 10px;
             font-size: 14px; font-family: inherit; transition: all 0.25s ease;
         }
         input:focus, select:focus, textarea:focus {
-            outline: none; border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow);
+            outline: none; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
             background: rgba(2, 6, 23, 0.95);
         }
         
         .output-row { position: relative; }
-        textarea { resize: vertical; height: 75px; font-family: monospace; font-size: 12px; color: #38bdf8; }
+        textarea { resize: vertical; height: 70px; font-family: monospace; font-size: 12px; color: #38bdf8; }
         
         .copy-btn {
-            position: absolute; right: 12px; top: 38px;
+            position: absolute; right: 10px; top: 34px;
             background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border);
-            color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 12px;
-            font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
+            color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px;
+            font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
         }
         .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
         .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
 
         .section-title {
-            font-size: 12px; font-weight: 800; color: var(--accent); margin: 30px 0 15px 0;
-            text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 10px;
+            font-size: 11px; font-weight: 800; color: var(--accent); margin: 24px 0 12px 0;
+            text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 8px;
         }
         .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
         .button-primary {
             background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); color: #fff; border: none;
-            padding: 16px; font-size: 0.95rem; font-weight: 800; width: 100%; border-radius: 14px;
+            padding: 14px; font-size: 0.9rem; font-weight: 800; width: 100%; border-radius: 12px;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 10px 30px -5px var(--accent-glow); transition: all 0.3s;
+            box-shadow: 0 10px 25px -5px var(--accent-glow); transition: all 0.3s;
         }
-        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 35px -5px rgba(6, 182, 212, 0.5); }
+        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.4); }
         .hidden { display: none !important; }
 
-        /* VISOR CINEMATOGRÁFICO */
+        /* VISOR CINEMATOGRÁFICO RESPONSIVO */
         #viewerContainer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; display: flex; justify-content: center; align-items: center;
             overflow: hidden; z-index: 9999;
         }
-        #playerFrame { width: 100%; height: 100%; border: none; }
+        .frame-wrapper { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: none; }
+        .frame-wrapper.active { display: block; }
+        #playerFrame1, #playerFrame2 { width: 100%; height: 100%; border: none; }
 
-        /* LOADER SINCRONIZADO REAL */
+        /* LOADER SINCRONIZADO REAL CON BOTÓN DE RETORNO INTELIGENTE */
         #loaderOverlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; transition: opacity 0.4s ease;
+            z-index: 100; transition: opacity 0.3s ease; padding: 20px; text-align: center;
         }
         .cinematic-spinner {
-            width: 70px; height: 70px; border: 3px solid rgba(6, 182, 212, 0.1);
+            width: 55px; height: 55px; border: 3px solid rgba(6, 182, 212, 0.1);
             border-top: 3px solid var(--accent); border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; margin-bottom: 25px;
-            box-shadow: 0 0 30px var(--accent-glow);
+            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; margin-bottom: 20px;
+            box-shadow: 0 0 25px var(--accent-glow);
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 8px; text-align: center; }
-        .loader-sub { font-size: 0.9rem; color: var(--text-muted); text-align: center; }
-        .latency-tag { margin-top: 15px; font-size: 11px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 6px 14px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
+        .loader-title { font-size: clamp(1.1rem, 3.5vw, 1.3rem); font-weight: 700; color: #fff; margin-bottom: 6px; }
+        .loader-sub { font-size: clamp(0.8rem, 2.5vw, 0.85rem); color: var(--text-muted); margin-bottom: 15px; }
+        .latency-tag { margin-top: 12px; font-size: 10px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
 
-        /* MARCA DE AGUA Y CONTROLES SUPERIORES */
-        .bstream-brand-badge {
-            position: absolute; top: 20px; left: 20px;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
-            border: 1px solid var(--border); padding: 10px 18px; border-radius: 35px;
-            display: flex; align-items: center; gap: 14px; z-index: 50;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6); user-select: none;
+        .retry-action-btn {
+            margin-top: 15px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            cursor: pointer; transition: all 0.2s; display: none; align-items: center; gap: 6px;
         }
-        .server-status-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; box-shadow: 0 0 10px var(--success); }
-        .server-status-dot.backup { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
-        .brand-text { font-weight: 800; font-size: 13px; letter-spacing: 1.5px; color: var(--text-main); text-transform: uppercase; }
+        .retry-action-btn:hover { background: var(--danger); color: #fff; }
+
+        /* MARCA DE AGUA Y CONTROLES SUPERIORES ADAPTABLES */
+        .bstream-brand-badge {
+            position: absolute; top: 12px; left: 12px; right: 12px;
+            max-width: fit-content;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border); padding: 8px 14px; border-radius: 30px;
+            display: flex; align-items: center; gap: 10px; z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); user-select: none;
+        }
+        .server-status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); flex-shrink: 0; }
+        .server-status-dot.backup { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+        .brand-text { font-weight: 800; font-size: 12px; letter-spacing: 1px; color: var(--text-main); text-transform: uppercase; white-space: nowrap; }
         .brand-text span { color: var(--accent); }
 
-        .badge-btn-group { display: flex; gap: 8px; align-items: center; }
+        .badge-btn-group { display: flex; gap: 6px; align-items: center; }
         .action-badge-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
-            padding: 6px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px;
-            cursor: pointer; color: #fff; font-size: 12px; font-weight: 600; transition: all 0.2s;
+            padding: 5px 10px; border-radius: 16px; display: flex; align-items: center; gap: 5px;
+            cursor: pointer; color: #fff; font-size: 11px; font-weight: 600; transition: all 0.2s;
+            white-space: nowrap;
         }
         .action-badge-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
+
+        @media (max-width: 480px) {
+            .bstream-brand-badge { top: 8px; left: 8px; right: 8px; justify-content: space-between; max-width: none; border-radius: 16px; padding: 8px 12px; }
+            .badge-btn-group { gap: 4px; }
+            .action-badge-btn { padding: 4px 8px; font-size: 10px; }
+        }
 
         /* PANEL DESLIZANTE INFERIOR (ADMIN/SANDBOX) */
         .bottom-drawer {
             position: absolute; bottom: -100%; left: 0; width: 100%;
             background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(30px);
-            border-top: 1px solid var(--accent); padding: 35px;
+            -webkit-backdrop-filter: blur(30px);
+            border-top: 1px solid var(--accent); padding: 25px 20px;
             transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200;
-            border-radius: 28px 28px 0 0; box-shadow: 0 -25px 60px rgba(0,0,0,0.95);
-            max-height: 90vh; overflow-y: auto;
+            border-radius: 24px 24px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.95);
+            max-height: 85vh; overflow-y: auto;
         }
         .bottom-drawer.open { bottom: 0; }
-        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .drawer-title { font-weight: 800; font-size: 1.25rem; color: #fff; display: flex; align-items: center; gap: 12px; }
-        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 28px; cursor: pointer; transition: color 0.2s; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+        .drawer-title { font-weight: 800; font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s; }
         .close-drawer:hover { color: #fff; }
         
         .drawer-option { 
             background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border);
-            padding: 18px; border-radius: 14px; margin-bottom: 15px;
-            display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+            padding: 14px; border-radius: 12px; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 15px;
         }
         .option-info { flex: 1; }
-        .option-title { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
-        .option-desc { color: var(--text-muted); font-size: 12.5px; line-height: 1.5; }
-        .drawer-option input[type="checkbox"] { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; margin-top: 4px; }
+        .option-title { color: #fff; font-size: 13.5px; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
+        .option-desc { color: var(--text-muted); font-size: 11.5px; line-height: 1.4; }
+        .drawer-option input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; margin-top: 3px; flex-shrink: 0; }
 
         #toast {
-            position: fixed; bottom: 35px; left: 50%; transform: translateX(-50%) translateY(120px);
-            background: var(--success); color: #fff; padding: 14px 28px; border-radius: 35px;
-            font-weight: 700; font-size: 14px; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--success); color: #fff; padding: 12px 22px; border-radius: 30px;
+            font-weight: 700; font-size: 13px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10000; pointer-events: none;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px; text-align: center;
         }
         #toast.show { transform: translateX(-50%) translateY(0); }
         #clickToPlayOverlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: 40; cursor: pointer; }
@@ -200,11 +223,11 @@
         <div class="studio-header">
             <div class="logo-area">
                 <div class="logo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
                 <div>
                     <h1>BStream <span>Studio</span></h1>
-                    <div style="font-size: 12px; color: var(--text-muted);">Enterprise Dual-Stream Engine v4.0</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Bidirectional Failover Engine v4.2</div>
                 </div>
             </div>
             <div class="version-badge">PRO ENTERPRISE</div>
@@ -217,8 +240,8 @@
             </div>
 
             <div class="field-wrap">
-                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Opcional - Failover Automático)</span></label>
-                <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/... (Si falla el principal, conmuta aquí)">
+                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Failover Bidireccional)</span></label>
+                <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/... (Con opción de retorno)">
             </div>
 
             <div class="section-title">🛡️ Configuración Avanzada & Sandbox</div>
@@ -227,15 +250,15 @@
                 <div class="field-wrap">
                     <label>Nivel de Aislamiento Sandbox</label>
                     <select id="selSandbox">
-                        <option value="aggressive">Ultra Agresivo (Bloqueo Total de Popups & Redirecciones)</option>
-                        <option value="moderate">Moderado (Permite Presentación & Pantalla Completa)</option>
+                        <option value="aggressive">Ultra Agresivo (Bloqueo Total Popups)</option>
+                        <option value="moderate">Moderado (Permite Presentación)</option>
                     </select>
                 </div>
                 <div class="field-wrap">
-                    <label>Pantalla Completa Automática al Clic</label>
+                    <label>Pantalla Completa al Clic</label>
                     <select id="selFs">
-                        <option value="1">Sí (Modo Inmersivo Total)</option>
-                        <option value="0">No (Mantener Tamaño Estándar)</option>
+                        <option value="1">Sí (Inmersivo Total)</option>
+                        <option value="0">No (Mantener Estándar)</option>
                     </select>
                 </div>
             </div>
@@ -245,17 +268,17 @@
                 <input type="text" id="customBrand" value="BStream Pro">
             </div>
 
-            <button type="submit" class="button-primary">Generar Enlace Enmascarado Dual Pro</button>
+            <button type="submit" class="button-primary">Generar Enlace Enmascarado Bidireccional</button>
         </form>
 
-        <div id="outputSection" class="hidden" style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px;">
+        <div id="outputSection" class="hidden" style="margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
             <div class="field-wrap output-row">
-                <label>Código Iframe Protegido (Responsive)</label>
+                <label>Código Iframe Protegido (Adaptativo)</label>
                 <textarea id="iframeCode" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('iframeCode', this)">Copiar Iframe</button>
             </div>
             <div class="field-wrap output-row" style="margin-bottom: 0;">
-                <label>Enlace Directo Enmascarado Dual</label>
+                <label>Enlace Directo Enmascarado Bidireccional</label>
                 <textarea id="directLink" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('directLink', this)">Copiar Enlace</button>
             </div>
@@ -267,57 +290,69 @@
     <div id="viewerContainer" class="hidden">
         <div id="preconnectContainer"></div>
 
-        <!-- Loader sincronizado real -->
+        <!-- Loader Sincronizado con Botón de Reintento / Retorno Dinámico -->
         <div id="loaderOverlay">
             <div class="cinematic-spinner"></div>
-            <div id="loaderTitle" class="loader-title">Conectando con el servidor principal...</div>
-            <div class="loader-sub">Estableciendo canal de transmisión seguro y optimizado.</div>
+            <div id="loaderTitle" class="loader-title">Conectando con el servidor...</div>
+            <div id="loaderSub" class="loader-sub">Estableciendo canales de streaming de alta velocidad.</div>
             <div id="latencyTag" class="latency-tag">Midiendo latencia de red...</div>
+            
+            <button id="retryReturnBtn" class="retry-action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                <span id="retryBtnText">Volver al Servidor Principal</span>
+            </button>
         </div>
 
         <div id="clickToPlayOverlay"></div>
 
+        <!-- Contenedores independientes -->
+        <div id="wrap1" class="frame-wrapper active">
+            <iframe id="playerFrame1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div id="wrap2" class="frame-wrapper">
+            <iframe id="playerFrame2" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- Barra Superior Adaptable -->
         <div class="bstream-brand-badge">
-            <div id="serverDot" class="server-status-dot" title="Servidor Principal Activo"></div>
-            <span class="brand-text"><span id="displayBrandText">BStream</span> Pro</span>
-            
+            <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <div id="serverDot" class="server-status-dot" title="Servidor Principal Activo"></div>
+                <span class="brand-text"><span id="displayBrandText">BStream</span> Pro</span>
+            </div>
             <div class="badge-btn-group">
-                <button id="switchServerBtn" class="action-badge-btn" title="Cambiar manualmente de servidor">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                <button id="switchServerBtn" class="action-badge-btn" title="Cambiar servidor">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
                     <span id="serverBtnLabel">Servidor 1</span>
                 </button>
-                <button id="openDrawerBtn" class="action-badge-btn" title="Abrir Panel de Seguridad y Sandbox">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <button id="openDrawerBtn" class="action-badge-btn" title="Panel de Seguridad">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     Seguridad
                 </button>
             </div>
         </div>
 
-        <!-- Frame del reproductor -->
-        <iframe id="playerFrame" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-        <!-- Panel Deslizante Inferior con Explicaciones Detalladas -->
+        <!-- Panel Deslizante Inferior -->
         <div id="securityDrawer" class="bottom-drawer">
             <div class="drawer-header">
                 <div class="drawer-title">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Centro de Seguridad & Sandbox BStream v4.0
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Centro de Seguridad BStream v4.2
                 </div>
                 <button id="closeDrawerBtn" class="close-drawer">&times;</button>
             </div>
             
             <div class="drawer-option">
                 <div class="option-info">
-                    <div class="option-title">🛡️ Aislamiento Sandbox de Alta Seguridad</div>
-                    <div class="option-desc">Bloquea la ejecución de scripts no deseados, evita la apertura automática de popups publicitarios molestos y neutraliza redirecciones maliciosas fuera del reproductor.</div>
+                    <div class="option-title">🛡️ Aislamiento Sandbox Estricto</div>
+                    <div class="option-desc">Bloquea scripts maliciosos externos, popups de publicidad invasiva y redirecciones de pestaña no autorizadas.</div>
                 </div>
-                <input type="checkbox" checked disabled title="Activado por defecto por seguridad">
+                <input type="checkbox" checked disabled>
             </div>
 
             <div class="drawer-option">
                 <div class="option-info">
                     <div class="option-title">🏷️ Sello de Marca Flotante</div>
-                    <div class="option-desc">Muestra la insignia personalizada en la esquina superior izquierda del reproductor para proteger tu identidad visual y branding corporativo.</div>
+                    <div class="option-desc">Muestra la insignia corporativa personalizada en la esquina superior para proteger tu identidad visual.</div>
                 </div>
                 <input type="checkbox" id="toggleWatermark" checked>
             </div>
@@ -325,26 +360,26 @@
             <div class="drawer-option">
                 <div class="option-info">
                     <div class="option-title">🔒 Bloqueo de Menú Contextual (Anti-Inspección)</div>
-                    <div class="option-desc">Desactiva el clic derecho del ratón dentro del visor para prevenir la inspección de código fuente y proteger los enlaces directos de video contra extracción.</div>
+                    <div class="option-desc">Desactiva el clic derecho en el visor para prevenir la extracción y vulnerabilidad de enlaces fuente.</div>
                 </div>
                 <input type="checkbox" id="toggleAntiInspect" checked>
             </div>
 
             <div class="drawer-option">
                 <div class="option-info">
-                    <div class="option-title">⚡ Sistema Failover Multi-Stream Activo</div>
-                    <div class="option-desc">Monitorea en tiempo real la estabilidad de la conexión. Si el servidor principal experimenta caída de paquetes o errores de carga, conmuta automáticamente al servidor secundario.</div>
+                    <div class="option-title">⚡ Sistema Failover Bidireccional Inteligente</div>
+                    <div class="option-desc">Monitorea ambos servidores. Si el respaldo falla o tarda demasiado, permite volver al principal o reintentar al instante.</div>
                 </div>
                 <input type="checkbox" checked disabled>
             </div>
 
-            <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 15px; text-align: center; font-family: monospace;">BStream Enterprise Core v4.0 • Zero-Popup & Failover Protection</p>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px; text-align: center; font-family: monospace;">BStream Core v4.2 • Bidirectional Smart Engine</p>
         </div>
     </div>
 
     <div id="toast">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        <span id="toastText">¡Enlace copiado con éxito!</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span id="toastText">¡Operación exitosa!</span>
     </div>
 
     <script>
@@ -367,7 +402,7 @@
             const toast = document.getElementById("toast");
             document.getElementById("toastText").innerText = message;
             toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2800);
+            setTimeout(() => toast.classList.remove("show"), 2500);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -382,7 +417,6 @@
                 const startTime = performance.now();
 
                 try {
-                    // Decodificar configuración JSON en base64
                     const configJson = JSON.parse(atob(encodedConfig));
                     const url1 = configJson.u1;
                     const url2 = configJson.u2 || "";
@@ -392,75 +426,149 @@
 
                     document.getElementById("displayBrandText").innerText = brand;
 
-                    let activeServerIndex = 1;
-                    const iframe = document.getElementById("playerFrame");
+                    const frame1 = document.getElementById("playerFrame1");
+                    const frame2 = document.getElementById("playerFrame2");
+                    const wrap1 = document.getElementById("wrap1");
+                    const wrap2 = document.getElementById("wrap2");
                     const loader = document.getElementById("loaderOverlay");
+                    const loaderTitle = document.getElementById("loaderTitle");
+                    const loaderSub = document.getElementById("loaderSub");
                     const serverDot = document.getElementById("serverDot");
                     const serverBtnLabel = document.getElementById("serverBtnLabel");
+                    const retryReturnBtn = document.getElementById("retryReturnBtn");
+                    const retryBtnText = document.getElementById("retryBtnText");
 
-                    // Configurar Sandbox
-                    if (sandboxLevel === "aggressive") {
-                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation");
-                    } else {
-                        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-presentation allow-popups");
-                    }
+                    const sandboxValue = sandboxLevel === "aggressive" 
+                        ? "allow-scripts allow-same-origin allow-presentation" 
+                        : "allow-scripts allow-same-origin allow-presentation allow-popups";
 
-                    function loadStream(url, index) {
-                        activeServerIndex = index;
-                        if(index === 1) {
-                            serverDot.className = "server-status-dot";
-                            serverDot.title = "Servidor Principal Activo";
-                            serverBtnLabel.innerText = "Servidor 1";
-                            document.getElementById("loaderTitle").innerText = "Conectando con el Servidor Principal...";
-                        } else {
-                            serverDot.className = "server-status-dot backup";
-                            serverDot.title = "Servidor de Respaldo Activo (Failover)";
-                            serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
-                            document.getElementById("loaderTitle").innerText = "⚠️ Conectando con Servidor de Respaldo...";
-                        }
-                        iframe.src = url;
-                    }
+                    frame1.setAttribute("sandbox", sandboxValue);
+                    frame2.setAttribute("sandbox", sandboxValue);
 
-                    // Cargar servidor inicial (Principal)
-                    loadStream(url1, 1);
+                    let activeServer = 1;
+                    let isLoaded = false;
+                    let failoverTriggered = false;
 
-                    // Temporizador de Failover Automático (si en 6 segundos no reporta carga exitosa y existe url2)
-                    let failoverTimer = setTimeout(() => {
-                        if (url2 && activeServerIndex === 1) {
-                            showToast("⚠️ Servidor principal lento. Activando respaldo...");
-                            loadStream(url2, 2);
-                        }
-                    }, 6500);
+                    frame1.src = url1;
+                    if (url2) frame2.src = url2;
 
-                    iframe.addEventListener("load", () => {
-                        clearTimeout(failoverTimer);
-                        const latency = Math.round(performance.now() - startTime);
-                        document.getElementById("latencyTag").innerText = `Latencia: ${latency}ms • Canal Seguro Verificado`;
-                        
-                        setTimeout(() => {
-                            loader.style.opacity = "0";
-                            setTimeout(() => loader.style.display = "none", 400);
-                        }, 400);
-                    });
-
-                    // Botón de cambio manual de servidor
-                    document.getElementById("switchServerBtn").addEventListener("click", () => {
-                        if (!url2) {
-                            showToast("ℹ️ No hay un servidor de respaldo configurado.");
-                            return;
-                        }
+                    function showLoader(title, subtitle, showRetry = false, retryText = "") {
                         loader.style.display = "flex";
                         loader.style.opacity = "1";
-                        if (activeServerIndex === 1) {
-                            loadStream(url2, 2);
-                            showToast("🔄 Cambiado al Servidor de Respaldo");
+                        loaderTitle.innerText = title;
+                        loaderSub.innerText = subtitle;
+                        if (showRetry) {
+                            retryBtnText.innerText = retryText;
+                            retryReturnBtn.style.display = "flex";
                         } else {
-                            loadStream(url1, 1);
-                            showToast("🔄 Cambiado al Servidor Principal");
+                            retryReturnBtn.style.display = "none";
+                        }
+                    }
+
+                    function hideLoader() {
+                        if (!isLoaded) {
+                            isLoaded = true;
+                            const latency = Math.round(performance.now() - startTime);
+                            document.getElementById("latencyTag").innerText = `Latencia: ${latency}ms • Red Segura`;
+                            loader.style.opacity = "0";
+                            setTimeout(() => loader.style.display = "none", 300);
+                        }
+                    }
+
+                    frame1.addEventListener("load", () => {
+                        if (activeServer === 1) hideLoader();
+                    });
+
+                    // Timeout automático para Servidor Principal -> Salta al Respaldo
+                    let failoverTimer = setTimeout(() => {
+                        if (!isLoaded && url2 && activeServer === 1 && !failoverTriggered) {
+                            failoverTriggered = true;
+                            switchToBackup(true);
+                        } else if (!isLoaded && !url2 && activeServer === 1) {
+                            showLoader("⚠️ El servidor principal está tardando", "Puedes reintentar la conexión de forma manual.", true, "Reintentar Servidor Principal");
+                        }
+                    }, 5500);
+
+                    // Timeout automático para Servidor de Respaldo -> Ofrece volver al Principal
+                    let backupTimeout = null;
+
+                    function switchToBackup(isAuto = false) {
+                        if (!url2) {
+                            if (!isAuto) showToast("ℹ️ No hay un servidor de respaldo configurado.");
+                            return;
+                        }
+                        activeServer = 2;
+                        isLoaded = false;
+                        wrap1.classList.remove("active");
+                        wrap2.classList.add("active");
+                        serverDot.className = "server-status-dot backup";
+                        serverDot.title = "Servidor de Respaldo Activo";
+                        serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
+
+                        showLoader("⚠️ Conectando con Servidor de Respaldo...", "El principal falló. Evaluando estabilidad...", true, "Volver al Servidor Principal");
+                        
+                        if (isAuto) {
+                            showToast("⚠️ Servidor principal lento. Conmutando a respaldo...");
+                        } else {
+                            showToast("🔄 Cambiado al Servidor de Respaldo");
+                        }
+
+                        // Si el respaldo también tarda más de 6 segundos, avisa al usuario
+                        backupTimeout = setTimeout(() => {
+                            if (!isLoaded && activeServer === 2) {
+                                showLoader("⚠️ El servidor de respaldo también tarda", "Es posible que el enlace esté inactivo o congestionado.", true, "Volver al Servidor Principal");
+                            }
+                        }, 6000);
+                    }
+
+                    function switchToPrimary() {
+                        clearTimeout(backupTimeout);
+                        activeServer = 1;
+                        isLoaded = false;
+                        wrap2.classList.remove("active");
+                        wrap1.classList.add("active");
+                        serverDot.className = "server-status-dot";
+                        serverDot.title = "Servidor Principal Activo";
+                        serverBtnLabel.innerText = "Servidor 1";
+
+                        showLoader("🔄 Volviendo al Servidor Principal...", "Restableciendo canal de origen...", false);
+                        showToast("🔄 Regresando al Servidor Principal");
+
+                        // Forzar recarga del frame principal si es necesario
+                        frame1.src = url1;
+                        setTimeout(() => hideLoader(), 1500);
+                    }
+
+                    frame2.addEventListener("load", () => {
+                        if (activeServer === 2) {
+                            clearTimeout(backupTimeout);
+                            hideLoader();
                         }
                     });
 
-                    // Pantalla completa al primer clic
+                    // Botón manual de cambio de servidor en barra superior
+                    document.getElementById("switchServerBtn").addEventListener("click", () => {
+                        if (activeServer === 1) {
+                            switchToBackup(false);
+                        } else {
+                            switchToPrimary();
+                        }
+                    });
+
+                    // Botón dinámico de reintento/retorno en el loader
+                    retryReturnBtn.addEventListener("click", () => {
+                        if (activeServer === 1) {
+                            // Reintentar servidor 1
+                            showLoader("Reintentando conexión...", "Cargando enlace principal...", false);
+                            frame1.src = url1;
+                            setTimeout(() => hideLoader(), 1500);
+                        } else {
+                            // Volver al servidor principal
+                            switchToPrimary();
+                        }
+                    });
+
+                    // Pantalla completa al primer toque
                     const clickOverlay = document.getElementById("clickToPlayOverlay");
                     if(forceFs) {
                         clickOverlay.addEventListener("click", () => {
@@ -473,7 +581,7 @@
                         clickOverlay.remove();
                     }
 
-                    // Panel deslizante y opciones
+                    // Panel deslizante inferior
                     const drawer = document.getElementById("securityDrawer");
                     document.getElementById("openDrawerBtn").addEventListener("click", () => drawer.classList.add("open"));
                     document.getElementById("closeDrawerBtn").addEventListener("click", () => drawer.classList.remove("open"));
@@ -491,7 +599,7 @@
                     });
 
                 } catch (e) {
-                    document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20vh; font-family:sans-serif;'>Error: Configuración de enlace enmascarado inválida o corrupta.</h2>";
+                    document.body.innerHTML = "<h2 style='color:#ef4444; text-align:center; margin-top:20vh; font-family:sans-serif; padding:20px;'>Error: Configuración de enlace enmascarado inválida.</h2>";
                 }
                 return;
             }
@@ -518,10 +626,10 @@
                 const currentBase = window.location.origin + window.location.pathname;
                 const secureMaskedUrl = `${currentBase}?config=${encodedConfig}`;
 
-                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="550px" frameborder="0" allowfullscreen></iframe>`;
+                document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>`;
                 document.getElementById("directLink").value = secureMaskedUrl;
                 document.getElementById("outputSection").classList.remove("hidden");
-                showToast("¡Enlace dual protegido generado con éxito!");
+                showToast("¡Enlace bidireccional generado con éxito!");
             });
         });
     </script>
