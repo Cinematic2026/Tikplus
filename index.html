@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BStream Cinematic Studio v4.2 - Enterprise Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>BStream Cinematic Studio v5.0 - Ultimate Enterprise</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +12,7 @@
             --bg-panel: rgba(15, 23, 42, 0.9);
             --accent: #06b6d4;
             --accent-secondary: #3b82f6;
-            --accent-glow: rgba(6, 182, 212, 0.25);
+            --accent-glow: rgba(6, 182, 212, 0.35);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: rgba(255, 255, 255, 0.08);
@@ -36,51 +37,45 @@
             padding: 12px;
         }
 
+        /* PANEL GENERADOR DE ENLACES */
         .studio-container {
             background: var(--bg-panel);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
-            padding: clamp(20px, 5vw, 40px);
+            padding: clamp(18px, 4vw, 36px);
             width: 100%;
-            max-width: 900px;
+            max-width: 880px;
             border-radius: 20px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border);
             margin: auto;
         }
         .studio-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 18px;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            gap: 12px; margin-bottom: 22px; border-bottom: 1px solid var(--border); padding-bottom: 16px;
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-icon {
-            width: 42px; height: 42px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
             border-radius: 12px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 20px var(--accent-glow);
-            flex-shrink: 0;
+            box-shadow: 0 0 20px var(--accent-glow); flex-shrink: 0;
         }
-        h1 { font-weight: 800; font-size: clamp(1.3rem, 4vw, 1.6rem); letter-spacing: -0.5px; }
+        h1 { font-weight: 800; font-size: clamp(1.2rem, 3.8vw, 1.55rem); letter-spacing: -0.5px; }
         h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .version-badge {
             font-size: 10px; font-weight: 700; background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3); padding: 5px 12px; border-radius: 20px; color: var(--accent);
+            border: 1px solid rgba(6, 182, 212, 0.3); padding: 4px 10px; border-radius: 20px; color: var(--accent);
             letter-spacing: 0.5px; text-transform: uppercase;
         }
 
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
-        .field-wrap { margin-bottom: 18px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+        .field-wrap { margin-bottom: 16px; }
         label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
         .req { color: var(--accent); }
         
         input, select, textarea {
-            width: 100%; padding: 12px 15px; background: rgba(2, 6, 23, 0.7);
+            width: 100%; padding: 12px 14px; background: rgba(2, 6, 23, 0.75);
             border: 1px solid var(--border); color: var(--text-main); border-radius: 10px;
-            font-size: 14px; font-family: inherit; transition: all 0.25s ease;
+            font-size: 13.5px; font-family: inherit; transition: all 0.25s ease;
         }
         input:focus, select:focus, textarea:focus {
             outline: none; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow);
@@ -88,10 +83,10 @@
         }
         
         .output-row { position: relative; }
-        textarea { resize: vertical; height: 70px; font-family: monospace; font-size: 12px; color: #38bdf8; }
+        textarea { resize: vertical; height: 68px; font-family: monospace; font-size: 11.5px; color: #38bdf8; }
         
         .copy-btn {
-            position: absolute; right: 10px; top: 34px;
+            position: absolute; right: 8px; top: 32px;
             background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border);
             color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 11px;
             font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 5px;
@@ -100,7 +95,7 @@
         .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
 
         .section-title {
-            font-size: 11px; font-weight: 800; color: var(--accent); margin: 24px 0 12px 0;
+            font-size: 11px; font-weight: 800; color: var(--accent); margin: 20px 0 12px 0;
             text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 8px;
         }
         .section-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
@@ -111,7 +106,7 @@
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
             box-shadow: 0 10px 25px -5px var(--accent-glow); transition: all 0.3s;
         }
-        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.4); }
+        .button-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.45); }
         .hidden { display: none !important; }
 
         /* VISOR CINEMATOGRÁFICO RESPONSIVO */
@@ -124,41 +119,53 @@
         .frame-wrapper.active { display: block; }
         #playerFrame1, #playerFrame2 { width: 100%; height: 100%; border: none; }
 
-        /* LOADER SINCRONIZADO REAL CON BOTÓN DE RETORNO INTELIGENTE */
+        /* LOADER CINEMATOGRÁFICO ULTRA PRO (BSTREAM NEON ENGINE) */
         #loaderOverlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; transition: opacity 0.3s ease; padding: 20px; text-align: center;
+            z-index: 100; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 20px; text-align: center;
         }
-        .cinematic-spinner {
-            width: 55px; height: 55px; border: 3px solid rgba(6, 182, 212, 0.1);
-            border-top: 3px solid var(--accent); border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; margin-bottom: 20px;
-            box-shadow: 0 0 25px var(--accent-glow);
+        .bstream-loader-box { position: relative; display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
+        .cinematic-ring {
+            width: 80px; height: 80px; border: 3px solid rgba(6, 182, 212, 0.12);
+            border-top: 3px solid var(--accent); border-right: 3px solid var(--accent-secondary);
+            border-radius: 50%; animation: spin 0.85s linear infinite;
+            box-shadow: 0 0 35px var(--accent-glow);
+        }
+        .loader-brand-logo {
+            position: absolute; font-weight: 900; font-size: 13px; letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; animation: pulse 1.5s ease-in-out infinite alternate;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-title { font-size: clamp(1.1rem, 3.5vw, 1.3rem); font-weight: 700; color: #fff; margin-bottom: 6px; }
-        .loader-sub { font-size: clamp(0.8rem, 2.5vw, 0.85rem); color: var(--text-muted); margin-bottom: 15px; }
-        .latency-tag { margin-top: 12px; font-size: 10px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
+        @keyframes pulse { 0% { opacity: 0.6; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1.05); } }
+        
+        .loader-title { font-size: clamp(1.05rem, 3.2vw, 1.25rem); font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.3px; }
+        .loader-sub { font-size: clamp(0.78rem, 2.2vw, 0.85rem); color: var(--text-muted); }
+        .latency-tag { margin-top: 14px; font-size: 10px; font-family: monospace; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; color: #38bdf8; border: 1px solid var(--border); }
 
         .retry-action-btn {
-            margin-top: 15px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            margin-top: 16px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5; padding: 8px 16px; border-radius: 20px; font-size: 11.5px; font-weight: 700;
             cursor: pointer; transition: all 0.2s; display: none; align-items: center; gap: 6px;
         }
         .retry-action-btn:hover { background: var(--danger); color: #fff; }
 
-        /* MARCA DE AGUA Y CONTROLES SUPERIORES ADAPTABLES */
+        /* MARCA DE AGUA Y CONTROLES CON DESVANECIMIENTO SUAVE */
         .bstream-brand-badge {
             position: absolute; top: 12px; left: 12px; right: 12px;
             max-width: fit-content;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border); padding: 8px 14px; border-radius: 30px;
             display: flex; align-items: center; gap: 10px; z-index: 50;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6); user-select: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
+        .bstream-brand-badge.auto-hidden { opacity: 0; transform: translateY(-15px); pointer-events: none; }
+
         .server-status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); flex-shrink: 0; }
         .server-status-dot.backup { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
         .brand-text { font-weight: 800; font-size: 12px; letter-spacing: 1px; color: var(--text-main); text-transform: uppercase; white-space: nowrap; }
@@ -168,47 +175,69 @@
         .action-badge-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border);
             padding: 5px 10px; border-radius: 16px; display: flex; align-items: center; gap: 5px;
-            cursor: pointer; color: #fff; font-size: 11px; font-weight: 600; transition: all 0.2s;
-            white-space: nowrap;
+            cursor: pointer; color: #fff; font-size: 11px; font-weight: 600; transition: all 0.2s; white-space: nowrap;
         }
         .action-badge-btn:hover { background: var(--accent); border-color: var(--accent); color: #020617; }
 
-        @media (max-width: 480px) {
-            .bstream-brand-badge { top: 8px; left: 8px; right: 8px; justify-content: space-between; max-width: none; border-radius: 16px; padding: 8px 12px; }
-            .badge-btn-group { gap: 4px; }
-            .action-badge-btn { padding: 4px 8px; font-size: 10px; }
+        /* INDICADOR FLOTANTE INFERIOR AL OCULTAR UI */
+        #hudWakeNotice {
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border); padding: 6px 16px; border-radius: 20px;
+            color: var(--text-muted); font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+            opacity: 0; transition: all 0.4s ease; pointer-events: none; z-index: 45;
+            display: flex; align-items: center; gap: 6px; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
+        #hudWakeNotice.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        /* PANEL DESLIZANTE INFERIOR (ADMIN/SANDBOX) */
+        /* PANEL DESLIZANTE INFERIOR ADAPTATIVO (LANDSCAPE & PORTRAIT) */
         .bottom-drawer {
             position: absolute; bottom: -100%; left: 0; width: 100%;
             background: rgba(15, 23, 42, 0.98); backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border-top: 1px solid var(--accent); padding: 25px 20px;
+            border-top: 1px solid var(--accent); padding: 22px 18px;
             transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200;
-            border-radius: 24px 24px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.95);
+            border-radius: 22px 22px 0 0; box-shadow: 0 -20px 50px rgba(0,0,0,0.95);
             max-height: 85vh; overflow-y: auto;
         }
         .bottom-drawer.open { bottom: 0; }
-        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-        .drawer-title { font-weight: 800; font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .drawer-title { font-weight: 800; font-size: 1.05rem; color: #fff; display: flex; align-items: center; gap: 8px; }
         .close-drawer { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; transition: color 0.2s; }
         .close-drawer:hover { color: #fff; }
         
+        .drawer-content-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        
         .drawer-option { 
-            background: rgba(2, 6, 23, 0.5); border: 1px solid var(--border);
-            padding: 14px; border-radius: 12px; margin-bottom: 12px;
-            display: flex; justify-content: space-between; align-items: flex-start; gap: 15px;
+            background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border);
+            padding: 12px 14px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
         }
         .option-info { flex: 1; }
-        .option-title { color: #fff; font-size: 13.5px; font-weight: 700; margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
-        .option-desc { color: var(--text-muted); font-size: 11.5px; line-height: 1.4; }
-        .drawer-option input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; margin-top: 3px; flex-shrink: 0; }
+        .option-title { color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
+        .option-desc { color: var(--text-muted); font-size: 11px; line-height: 1.35; }
+        .drawer-option input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+
+        /* AJUSTES ESPECÍFICOS PARA PANTALLA HORIZONTAL (LANDSCAPE) */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .bstream-brand-badge { top: 6px; left: 8px; right: 8px; padding: 4px 10px; border-radius: 12px; }
+            .action-badge-btn { padding: 3px 8px; font-size: 10px; }
+            .brand-text { font-size: 11px; }
+            
+            .bottom-drawer { padding: 14px 16px; max-height: 92vh; border-radius: 16px 16px 0 0; }
+            .drawer-header { margin-bottom: 10px; padding-bottom: 6px; }
+            .drawer-title { font-size: 0.95rem; }
+            .drawer-content-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .drawer-option { padding: 8px 10px; }
+            .option-title { font-size: 11.5px; }
+            .option-desc { font-size: 10px; }
+            #hudWakeNotice { bottom: 8px; font-size: 10px; padding: 4px 12px; }
+        }
 
         #toast {
             position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: var(--success); color: #fff; padding: 12px 22px; border-radius: 30px;
-            font-weight: 700; font-size: 13px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            background: var(--success); color: #fff; padding: 10px 20px; border-radius: 30px;
+            font-weight: 700; font-size: 12.5px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10000; pointer-events: none;
             display: flex; align-items: center; gap: 8px; text-align: center;
         }
@@ -227,10 +256,10 @@
                 </div>
                 <div>
                     <h1>BStream <span>Studio</span></h1>
-                    <div style="font-size: 11px; color: var(--text-muted);">Bidirectional Failover Engine v4.2</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Ultimate Landscape-Adaptive Engine v5.0</div>
                 </div>
             </div>
-            <div class="version-badge">PRO ENTERPRISE</div>
+            <div class="version-badge">ENTERPRISE v5.0</div>
         </div>
 
         <form id="genForm">
@@ -240,8 +269,8 @@
             </div>
 
             <div class="field-wrap">
-                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Failover Bidireccional)</span></label>
-                <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/... (Con opción de retorno)">
+                <label>Servidor de Respaldo / Backup <span style="color: #38bdf8;">(Failover Limpio Sin Audio Duplicado)</span></label>
+                <input type="text" id="targetLink2" placeholder="https://servidor2.com/embed/...">
             </div>
 
             <div class="section-title">🛡️ Configuración Avanzada & Sandbox</div>
@@ -250,7 +279,7 @@
                 <div class="field-wrap">
                     <label>Nivel de Aislamiento Sandbox</label>
                     <select id="selSandbox">
-                        <option value="aggressive">Ultra Agresivo (Bloqueo Total Popups)</option>
+                        <option value="aggressive">Ultra Agresivo (Bloqueo Total Popups & Redirecciones)</option>
                         <option value="moderate">Moderado (Permite Presentación)</option>
                     </select>
                 </div>
@@ -268,7 +297,7 @@
                 <input type="text" id="customBrand" value="BStream Pro">
             </div>
 
-            <button type="submit" class="button-primary">Generar Enlace Enmascarado Bidireccional</button>
+            <button type="submit" class="button-primary">Generar Enlace Enmascarado Enterprise v5.0</button>
         </form>
 
         <div id="outputSection" class="hidden" style="margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -278,7 +307,7 @@
                 <button type="button" class="copy-btn" onclick="copyToClipboard('iframeCode', this)">Copiar Iframe</button>
             </div>
             <div class="field-wrap output-row" style="margin-bottom: 0;">
-                <label>Enlace Directo Enmascarado Bidireccional</label>
+                <label>Enlace Directo Enmascarado Dual</label>
                 <textarea id="directLink" readonly></textarea>
                 <button type="button" class="copy-btn" onclick="copyToClipboard('directLink', this)">Copiar Enlace</button>
             </div>
@@ -290,11 +319,14 @@
     <div id="viewerContainer" class="hidden">
         <div id="preconnectContainer"></div>
 
-        <!-- Loader Sincronizado con Botón de Reintento / Retorno Dinámico -->
+        <!-- Loader Cinematográfico Pro con Anillo Neón y Marca BStream -->
         <div id="loaderOverlay">
-            <div class="cinematic-spinner"></div>
-            <div id="loaderTitle" class="loader-title">Conectando con el servidor...</div>
-            <div id="loaderSub" class="loader-sub">Estableciendo canales de streaming de alta velocidad.</div>
+            <div class="bstream-loader-box">
+                <div class="cinematic-ring"></div>
+                <div class="loader-brand-logo">BSTREAM</div>
+            </div>
+            <div id="loaderTitle" class="loader-title">Iniciando BStream Engine...</div>
+            <div id="loaderSub" class="loader-sub">Conectando canal de video seguro en alta definición.</div>
             <div id="latencyTag" class="latency-tag">Midiendo latencia de red...</div>
             
             <button id="retryReturnBtn" class="retry-action-btn">
@@ -305,7 +337,7 @@
 
         <div id="clickToPlayOverlay"></div>
 
-        <!-- Contenedores independientes -->
+        <!-- Contenedores independientes para cambio limpio -->
         <div id="wrap1" class="frame-wrapper active">
             <iframe id="playerFrame1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
@@ -313,8 +345,8 @@
             <iframe id="playerFrame2" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
-        <!-- Barra Superior Adaptable -->
-        <div class="bstream-brand-badge">
+        <!-- Barra Superior Adaptable con Auto-Desvanecimiento -->
+        <div id="brandBadge" class="bstream-brand-badge">
             <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
                 <div id="serverDot" class="server-status-dot" title="Servidor Principal Activo"></div>
                 <span class="brand-text"><span id="displayBrandText">BStream</span> Pro</span>
@@ -331,54 +363,62 @@
             </div>
         </div>
 
-        <!-- Panel Deslizante Inferior -->
+        <!-- Mini Indicador al Inactivarse Interfaz -->
+        <div id="hudWakeNotice">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            Toca o mueve el cursor para activar controles
+        </div>
+
+        <!-- Panel Deslizante Inferior Reorganizado para Modo Horizontal -->
         <div id="securityDrawer" class="bottom-drawer">
             <div class="drawer-header">
                 <div class="drawer-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Centro de Seguridad BStream v4.2
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Centro Sandbox BStream v5.0
                 </div>
                 <button id="closeDrawerBtn" class="close-drawer">&times;</button>
             </div>
             
-            <div class="drawer-option">
-                <div class="option-info">
-                    <div class="option-title">🛡️ Aislamiento Sandbox Estricto</div>
-                    <div class="option-desc">Bloquea scripts maliciosos externos, popups de publicidad invasiva y redirecciones de pestaña no autorizadas.</div>
+            <div class="drawer-content-grid">
+                <div class="drawer-option">
+                    <div class="option-info">
+                        <div class="option-title">🛡️ Sandbox Anti-Popups Avanzado</div>
+                        <div class="option-desc">Bloqueo absoluto de publicidad invasiva, popups emergentes y redirecciones no autorizadas.</div>
+                    </div>
+                    <input type="checkbox" checked disabled>
                 </div>
-                <input type="checkbox" checked disabled>
+
+                <div class="drawer-option">
+                    <div class="option-info">
+                        <div class="option-title">🏷️ Sello Flotante BStream</div>
+                        <div class="option-desc">Muestra la insignia corporativa en la esquina superior para mantener tu marca visible.</div>
+                    </div>
+                    <input type="checkbox" id="toggleWatermark" checked>
+                </div>
+
+                <div class="drawer-option">
+                    <div class="option-info">
+                        <div class="option-title">🔒 Protección Anti-Inspección</div>
+                        <div class="option-desc">Desactiva el menú del clic derecho para evitar la captura directa de enlaces fuente.</div>
+                    </div>
+                    <input type="checkbox" id="toggleAntiInspect" checked>
+                </div>
+
+                <div class="drawer-option">
+                    <div class="option-info">
+                        <div class="option-title">⚡ Audio-Clean Failover Dual</div>
+                        <div class="option-desc">Conmutación de servidores sin residuos de audio, limpiando buffers inactivos inmediatamente.</div>
+                    </div>
+                    <input type="checkbox" checked disabled>
+                </div>
             </div>
 
-            <div class="drawer-option">
-                <div class="option-info">
-                    <div class="option-title">🏷️ Sello de Marca Flotante</div>
-                    <div class="option-desc">Muestra la insignia corporativa personalizada en la esquina superior para proteger tu identidad visual.</div>
-                </div>
-                <input type="checkbox" id="toggleWatermark" checked>
-            </div>
-
-            <div class="drawer-option">
-                <div class="option-info">
-                    <div class="option-title">🔒 Bloqueo de Menú Contextual (Anti-Inspección)</div>
-                    <div class="option-desc">Desactiva el clic derecho en el visor para prevenir la extracción y vulnerabilidad de enlaces fuente.</div>
-                </div>
-                <input type="checkbox" id="toggleAntiInspect" checked>
-            </div>
-
-            <div class="drawer-option">
-                <div class="option-info">
-                    <div class="option-title">⚡ Sistema Failover Bidireccional Inteligente</div>
-                    <div class="option-desc">Monitorea ambos servidores. Si el respaldo falla o tarda demasiado, permite volver al principal o reintentar al instante.</div>
-                </div>
-                <input type="checkbox" checked disabled>
-            </div>
-
-            <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px; text-align: center; font-family: monospace;">BStream Core v4.2 • Bidirectional Smart Engine</p>
+            <p style="font-size: 10.5px; color: var(--text-muted); margin-top: 10px; text-align: center; font-family: monospace;">BStream Enterprise v5.0 • Landscape Optimized</p>
         </div>
     </div>
 
     <div id="toast">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
         <span id="toastText">¡Operación exitosa!</span>
     </div>
 
@@ -437,6 +477,8 @@
                     const serverBtnLabel = document.getElementById("serverBtnLabel");
                     const retryReturnBtn = document.getElementById("retryReturnBtn");
                     const retryBtnText = document.getElementById("retryBtnText");
+                    const brandBadge = document.getElementById("brandBadge");
+                    const hudWakeNotice = document.getElementById("hudWakeNotice");
 
                     const sandboxValue = sandboxLevel === "aggressive" 
                         ? "allow-scripts allow-same-origin allow-presentation" 
@@ -449,8 +491,8 @@
                     let isLoaded = false;
                     let failoverTriggered = false;
 
+                    // Inicialización del Servidor 1 únicamente para ahorro de banda y prevención de audio fantasma
                     frame1.src = url1;
-                    if (url2) frame2.src = url2;
 
                     function showLoader(title, subtitle, showRetry = false, retryText = "") {
                         loader.style.display = "flex";
@@ -469,75 +511,15 @@
                         if (!isLoaded) {
                             isLoaded = true;
                             const latency = Math.round(performance.now() - startTime);
-                            document.getElementById("latencyTag").innerText = `Latencia: ${latency}ms • Red Segura`;
+                            document.getElementById("latencyTag").innerText = `Latencia: ${latency}ms • Canal Seguro BStream`;
                             loader.style.opacity = "0";
-                            setTimeout(() => loader.style.display = "none", 300);
+                            setTimeout(() => loader.style.display = "none", 350);
                         }
                     }
 
                     frame1.addEventListener("load", () => {
                         if (activeServer === 1) hideLoader();
                     });
-
-                    // Timeout automático para Servidor Principal -> Salta al Respaldo
-                    let failoverTimer = setTimeout(() => {
-                        if (!isLoaded && url2 && activeServer === 1 && !failoverTriggered) {
-                            failoverTriggered = true;
-                            switchToBackup(true);
-                        } else if (!isLoaded && !url2 && activeServer === 1) {
-                            showLoader("⚠️ El servidor principal está tardando", "Puedes reintentar la conexión de forma manual.", true, "Reintentar Servidor Principal");
-                        }
-                    }, 5500);
-
-                    // Timeout automático para Servidor de Respaldo -> Ofrece volver al Principal
-                    let backupTimeout = null;
-
-                    function switchToBackup(isAuto = false) {
-                        if (!url2) {
-                            if (!isAuto) showToast("ℹ️ No hay un servidor de respaldo configurado.");
-                            return;
-                        }
-                        activeServer = 2;
-                        isLoaded = false;
-                        wrap1.classList.remove("active");
-                        wrap2.classList.add("active");
-                        serverDot.className = "server-status-dot backup";
-                        serverDot.title = "Servidor de Respaldo Activo";
-                        serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
-
-                        showLoader("⚠️ Conectando con Servidor de Respaldo...", "El principal falló. Evaluando estabilidad...", true, "Volver al Servidor Principal");
-                        
-                        if (isAuto) {
-                            showToast("⚠️ Servidor principal lento. Conmutando a respaldo...");
-                        } else {
-                            showToast("🔄 Cambiado al Servidor de Respaldo");
-                        }
-
-                        // Si el respaldo también tarda más de 6 segundos, avisa al usuario
-                        backupTimeout = setTimeout(() => {
-                            if (!isLoaded && activeServer === 2) {
-                                showLoader("⚠️ El servidor de respaldo también tarda", "Es posible que el enlace esté inactivo o congestionado.", true, "Volver al Servidor Principal");
-                            }
-                        }, 6000);
-                    }
-
-                    function switchToPrimary() {
-                        clearTimeout(backupTimeout);
-                        activeServer = 1;
-                        isLoaded = false;
-                        wrap2.classList.remove("active");
-                        wrap1.classList.add("active");
-                        serverDot.className = "server-status-dot";
-                        serverDot.title = "Servidor Principal Activo";
-                        serverBtnLabel.innerText = "Servidor 1";
-
-                        showLoader("🔄 Volviendo al Servidor Principal...", "Restableciendo canal de origen...", false);
-                        showToast("🔄 Regresando al Servidor Principal");
-
-                        // Forzar recarga del frame principal si es necesario
-                        frame1.src = url1;
-                        setTimeout(() => hideLoader(), 1500);
-                    }
 
                     frame2.addEventListener("load", () => {
                         if (activeServer === 2) {
@@ -546,7 +528,77 @@
                         }
                     });
 
-                    // Botón manual de cambio de servidor en barra superior
+                    // Timeout automático: Servidor Principal -> Servidor de Respaldo
+                    let failoverTimer = setTimeout(() => {
+                        if (!isLoaded && url2 && activeServer === 1 && !failoverTriggered) {
+                            failoverTriggered = true;
+                            switchToBackup(true);
+                        } else if (!isLoaded && !url2 && activeServer === 1) {
+                            showLoader("⚠️ Servidor principal con demora", "Puedes reintentar la conexión manualmente.", true, "Reintentar Servidor 1");
+                        }
+                    }, 5500);
+
+                    let backupTimeout = null;
+
+                    // CAMBIO A SERVIDOR DE RESPALDO (LIMPIANDO SERVIDOR 1 PARA CORTAR AUDIO)
+                    function switchToBackup(isAuto = false) {
+                        if (!url2) {
+                            if (!isAuto) showToast("ℹ️ No hay un servidor de respaldo configurado.");
+                            return;
+                        }
+                        activeServer = 2;
+                        isLoaded = false;
+
+                        // CORRECCIÓN BUG AUDIO: Destruir src del iframe 1 inmediatamente
+                        frame1.src = "about:blank";
+
+                        wrap1.classList.remove("active");
+                        wrap2.classList.add("active");
+                        serverDot.className = "server-status-dot backup";
+                        serverDot.title = "Servidor de Respaldo Activo";
+                        serverBtnLabel.innerText = "Servidor 2 (Respaldo)";
+
+                        // Cargar iframe 2 en limpio
+                        frame2.src = url2;
+
+                        showLoader("⚠️ Conectando a Respaldo...", "Iniciando Servidor 2 sin residuos de audio...", true, "Volver al Servidor Principal");
+                        
+                        if (isAuto) {
+                            showToast("⚠️ Servidor 1 lento. Conmutando a Respaldo...");
+                        } else {
+                            showToast("🔄 Cambiado al Servidor de Respaldo");
+                        }
+
+                        backupTimeout = setTimeout(() => {
+                            if (!isLoaded && activeServer === 2) {
+                                showLoader("⚠️ El servidor de respaldo también tarda", "El enlace puede estar congestionado.", true, "Volver al Servidor Principal");
+                            }
+                        }, 6000);
+                    }
+
+                    // RETORNO A SERVIDOR PRINCIPAL (LIMPIANDO SERVIDOR 2 PARA CORTAR AUDIO)
+                    function switchToPrimary() {
+                        clearTimeout(backupTimeout);
+                        activeServer = 1;
+                        isLoaded = false;
+
+                        // CORRECCIÓN BUG AUDIO: Destruir src del iframe 2 inmediatamente
+                        frame2.src = "about:blank";
+
+                        wrap2.classList.remove("active");
+                        wrap1.classList.add("active");
+                        serverDot.className = "server-status-dot";
+                        serverDot.title = "Servidor Principal Activo";
+                        serverBtnLabel.innerText = "Servidor 1";
+
+                        showLoader("🔄 Volviendo al Servidor Principal...", "Recargando Servidor 1 de origen...", false);
+                        showToast("🔄 Regresando al Servidor Principal");
+
+                        // Cargar iframe 1 en limpio
+                        frame1.src = url1;
+                    }
+
+                    // Botón de cambio en la barra superior
                     document.getElementById("switchServerBtn").addEventListener("click", () => {
                         if (activeServer === 1) {
                             switchToBackup(false);
@@ -555,20 +607,41 @@
                         }
                     });
 
-                    // Botón dinámico de reintento/retorno en el loader
+                    // Botón de reintento en el loader
                     retryReturnBtn.addEventListener("click", () => {
                         if (activeServer === 1) {
-                            // Reintentar servidor 1
-                            showLoader("Reintentando conexión...", "Cargando enlace principal...", false);
+                            showLoader("Reintentando conexión...", "Cargando Servidor 1...", false);
                             frame1.src = url1;
-                            setTimeout(() => hideLoader(), 1500);
                         } else {
-                            // Volver al servidor principal
                             switchToPrimary();
                         }
                     });
 
-                    // Pantalla completa al primer toque
+                    // SISTEMA DE AUTO-DESVANECIMIENTO DE UI TRAS 30 SEGUNDOS
+                    let idleTimer = null;
+
+                    function resetIdleTimer() {
+                        brandBadge.classList.remove("auto-hidden");
+                        hudWakeNotice.classList.remove("visible");
+                        clearTimeout(idleTimer);
+
+                        idleTimer = setTimeout(() => {
+                            // Solo ocultar si la ventana flotante de configuración no está abierta
+                            const drawer = document.getElementById("securityDrawer");
+                            if (!drawer.classList.contains("open")) {
+                                brandBadge.classList.add("auto-hidden");
+                                hudWakeNotice.classList.add("visible");
+                            }
+                        }, 30000); // 30 segundos exactos
+                    }
+
+                    // Escuchar eventos de interacción para despertar la interfaz
+                    ["mousemove", "touchstart", "click", "keydown"].forEach(evt => {
+                        window.addEventListener(evt, resetIdleTimer, { passive: true });
+                    });
+                    resetIdleTimer();
+
+                    // Pantalla completa al primer toque opcional
                     const clickOverlay = document.getElementById("clickToPlayOverlay");
                     if(forceFs) {
                         clickOverlay.addEventListener("click", () => {
@@ -581,13 +654,16 @@
                         clickOverlay.remove();
                     }
 
-                    // Panel deslizante inferior
+                    // Panel deslizante de seguridad
                     const drawer = document.getElementById("securityDrawer");
-                    document.getElementById("openDrawerBtn").addEventListener("click", () => drawer.classList.add("open"));
+                    document.getElementById("openDrawerBtn").addEventListener("click", () => {
+                        drawer.classList.add("open");
+                        resetIdleTimer();
+                    });
                     document.getElementById("closeDrawerBtn").addEventListener("click", () => drawer.classList.remove("open"));
 
                     document.getElementById("toggleWatermark").addEventListener("change", (e) => {
-                        document.querySelector(".bstream-brand-badge").style.display = e.target.checked ? "flex" : "none";
+                        brandBadge.style.display = e.target.checked ? "flex" : "none";
                     });
 
                     document.getElementById("toggleAntiInspect").addEventListener("change", (e) => {
@@ -629,7 +705,7 @@
                 document.getElementById("iframeCode").value = `<iframe src="${secureMaskedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>`;
                 document.getElementById("directLink").value = secureMaskedUrl;
                 document.getElementById("outputSection").classList.remove("hidden");
-                showToast("¡Enlace bidireccional generado con éxito!");
+                showToast("¡Enlace Enterprise v5.0 generado con éxito!");
             });
         });
     </script>
